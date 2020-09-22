@@ -81,23 +81,40 @@
                                                 </button>
                                             </li>
                                         @else
-                                            <li class="nav-item dropdown">
                                             <li><a href="#">{{ Auth::user()->name }}</a>
                                                 <ul class="dropdown-menu-col-1 just-left">
-                                                    <li><a href="{{ route('logout') }}"
-                                                            onclick="event.preventDefault();
-                                                                            document.getElementById('logout-form').submit();">{{ trans('msg.logout') }}</a>
+                                                    <li>
+                                                        @if (Auth::user()->role == config('role.admin'))
+                                                            <a href="{{ route('admin_index') }}">
+                                                                {{ trans('msg.admin') }}
+                                                            </a>
+                                                        @endif
+                                                        <a id="logout" href="{{ route('logout') }}">
+                                                            {{ trans('msg.logout') }}
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    class="d-none">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                            </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
                                         @endguest
+                                        <li><a href="#">{{ trans('msg.language') }}</a>
+                                            <ul class="dropdown-menu-col-1 just-left">
+                                                <li>
+                                                    <a id="en" href="#">{{ trans('msg.english') }}
+                                                    </a>
+                                                    <a id="vi" href="#">{{ trans('msg.vietnamese') }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <form id="language-form" action="{{ route('switch_lang') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                                <input type="hidden" id="locale" name="locale">
+                                            </form>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -157,7 +174,7 @@
     <div id="search" class="search-wrap">
         <button type="button" class="close">×</button>
         <form class="search-form">
-            <input type="search" id="ooooo" value=""/>
+            <input type="search" id="ooooo" value="" />
             <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
         </form>
     </div>
@@ -168,6 +185,7 @@
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/smoothscroll.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/home.js') }}"></script>
 </body>
 
 </html>

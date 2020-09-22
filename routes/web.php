@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Route::group(['middleware' => 'localization'], function () {
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('/lang', 'LangController@postLang')->name('switch_lang');
+
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('home');
+});

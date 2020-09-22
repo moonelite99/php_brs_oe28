@@ -25,4 +25,7 @@ return [
     'logout' => 'Đăng xuất',
     'email_address' => 'Địa chỉ Email',
     'pass_confirm' => 'Nhập lại mật khẩu',
+    'language' => 'Ngôn ngữ',
+    'english' => 'Tiếng Anh',
+    'vietnamese' => 'Tiếng Việt',
 ];

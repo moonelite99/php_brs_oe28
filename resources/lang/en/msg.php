@@ -25,4 +25,7 @@ return [
     'logout' => 'Logout',
     'email_address' => 'Email address',
     'pass_confirm' => 'Confirm password',
+    'language' => 'Language',
+    'english' => 'English',
+    'vietnamese' => 'Vietnamese',
 ];
