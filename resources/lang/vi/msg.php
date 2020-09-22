@@ -28,4 +28,6 @@ return [
     'language' => 'Ngôn ngữ',
     'english' => 'Tiếng Anh',
     'vietnamese' => 'Tiếng Việt',
+    'admin' => 'Admin',
+    'dashboard' => 'Bảng điều khiển',
 ];
