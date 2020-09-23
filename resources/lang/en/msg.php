@@ -28,4 +28,6 @@ return [
     'language' => 'Language',
     'english' => 'English',
     'vietnamese' => 'Vietnamese',
+    'admin' => 'Admin',
+    'dashboard' => 'Dashboard',
 ];

@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'localization'], function () {
 
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+
+        Route::get('/', 'HomeController@admin_index')->name('admin_index');
+    });
+
     Route::post('/lang', 'LangController@postLang')->name('switch_lang');
 
     Auth::routes();
