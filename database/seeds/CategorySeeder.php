@@ -42,6 +42,9 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'medicine',
             ],
+            [
+                'name' => 'coloring',
+            ],
         ]);
     }
 }
