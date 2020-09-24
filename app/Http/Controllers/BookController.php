@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookFormRequest;
+use App\Http\Requests\UpdateBookFormRequest;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BookController extends Controller
 {
@@ -16,7 +18,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::paginate(config('default.pagination'));
+
+        return view('books.index', compact('books'));
     }
 
     /**
@@ -28,7 +32,7 @@ class BookController extends Controller
     {
         $categories = Category::all();
 
-        return view('book.create', compact('categories'));
+        return view('books.create', compact('categories'));
     }
 
     /**
@@ -53,7 +57,7 @@ class BookController extends Controller
         ]);
         $book->categories()->sync($request->categories);
 
-        return redirect()->route('book.create')->with('status', trans('msg.create_success'));
+        return redirect()->route('books.create')->with('status', trans('msg.create_success'));
     }
 
     /**
@@ -75,7 +79,15 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $book = Book::findOrFail($id);
+            $categories = Category::all();
+            $selectedCategories = $book->categories->pluck('id')->toArray();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('books.edit', compact(['book', 'categories', 'selectedCategories']));
     }
 
     /**
@@ -85,9 +97,33 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBookFormRequest $request, $id)
     {
-        //
+        try {
+            $book = Book::findOrFail($id);
+            if ($request->has('image')) {
+                $image = $request->image;
+                $fileName = uniqid() . $image->getClientOriginalName();
+                $image->move(config('img.path'), $fileName);
+                $img_path = config('img.path') . $fileName;
+            } else {
+                $img_path = $book->img_path;
+            }
+            $book->update([
+                'title' => $request->title,
+                'author' => $request->author,
+                'description' => $request->description,
+                'pages_number' => $request->pages_number,
+                'publish_date' => $request->publish_date,
+                'img_path' => $img_path,
+                'rating' => $book->rating,
+            ]);
+            $book->categories()->sync($request->categories);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return redirect()->route('books.edit', $book->id)->with('status', trans('msg.update_successful'));
     }
 
     /**
@@ -98,6 +134,13 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $book = Book::findOrFail($id);
+            $book->delete();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return redirect()->route('books.index')->with('status', trans('msg.delete_successful'));
     }
 }

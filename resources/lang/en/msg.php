@@ -47,4 +47,11 @@ return [
     'create_success' => 'Created successfully',
     'pages' => 'pages',
     'unrated' => 'Unrated',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'find_fail' => 'Not found!',
+    'update_successful' => 'Updated successfully!',
+    'delete_successful' => 'Deleted successfully!',
+    'confirm' => 'Confirm',
+    'delete_confirm' => 'Are you sure want to delete?',
 ];

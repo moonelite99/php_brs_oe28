@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="active has-sub">
-                            <a href="{{ route('books.create') }}">
+                            <a href="{{ route('books.index') }}">
                                 <i class="fa fa-book"></i>&nbsp;
                                 {{ trans('msg.book') }}
                             </a>
