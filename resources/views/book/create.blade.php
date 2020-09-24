@@ -12,7 +12,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <form action="{{ route('book.store') }}" id="form" method="POST" enctype="multipart/form-data"
+                <form action="{{ route('books.store') }}" id="form" method="POST" enctype="multipart/form-data"
                     class="form-horizontal">
                     @csrf
                     <div class="row form-group">
