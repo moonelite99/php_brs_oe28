@@ -8,7 +8,7 @@
     <title>{{ trans('Cirilla') }} | {{ trans('msg.home') }} </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset(config('img.favicon')) }}">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -33,10 +33,10 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-3 col-sm-4 col-4 possition-static">
                             <div class="site-logo-mobile">
-                                <a href="index.html" class="sticky-logo-light"><img
-                                        src="{{ asset('img/logo-light.png') }}"></a>
-                                <a href="index.html" class="sticky-logo-dark"><img
-                                        src="{{ asset('img/logo-dark.png') }}"></a>
+                                <a href="{{ route('home') }}" class="sticky-logo-light"><img
+                                        src="{{ asset(config('img.light_logo')) }}"></a>
+                                <a href="{{ route('home') }}" class="sticky-logo-dark"><img
+                                        src="{{ asset(config('img.dark_logo')) }}"></a>
                             </div>
                             <nav class="site-nav">
                                 <ul id="site-menu" class="site-menu">
@@ -44,15 +44,15 @@
                                         <a href="{{ route('home') }}">{{ trans('msg.home') }}</a>
                                     </li>
                                     <li>
-                                        <a href="category.html">{{ trans('msg.category') }}</a>
+                                        <a href="#">{{ trans('msg.category') }}</a>
                                     </li>
                                     <li>
                                         <a href="#">{{ trans('msg.book') }}</a>
                                     </li>
                                     <li>
-                                        <a href="blog-grid.html">{{ trans('msg.review') }}</a>
+                                        <a href="#">{{ trans('msg.review') }}</a>
                                     </li>
-                                    <li><a href="contact.html">{{ trans('msg.contact') }}</a></li>
+                                    <li><a href="#">{{ trans('msg.contact') }}</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -135,7 +135,7 @@
         <footer class="ranna-bg-dark">
             <div class="container">
                 <div class="footer-logo">
-                    <a href="index.html">
+                    <a href="{{ route('home') }}">
                         <img src="{{ asset('img/logo-light.png') }}" class="img-fluid">
                     </a>
                 </div>
