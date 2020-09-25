@@ -45,4 +45,6 @@ return [
     'image' => 'Image',
     'submit' => 'Submit',
     'create_success' => 'Created successfully',
+    'pages' => 'pages',
+    'unrated' => 'Unrated',
 ];

@@ -45,4 +45,6 @@ return [
     'image' => 'Hình ảnh',
     'submit' => 'Gửi đi',
     'create_success' => 'Tạo mới thành công',
+    'pages' => 'trang',
+    'unrated' => 'Chưa có đánh giá',
 ];

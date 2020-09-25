@@ -26,8 +26,8 @@
     <div class="page-wrapper">
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
-                    <img src="{{ config('img.dark_logo') }}" alt="Cirilla" />
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset(config('img.dark_logo')) }}" alt="Cirilla" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -37,6 +37,12 @@
                             <a href="{{ route('admin_index') }}">
                                 <i class="fas fa-tachometer-alt"></i>
                                 {{ trans('msg.dashboard') }}
+                            </a>
+                        </li>
+                        <li class="active has-sub">
+                            <a href="{{ route('books.create') }}">
+                                <i class="fa fa-book"></i>&nbsp;
+                                {{ trans('msg.book') }}
                             </a>
                         </li>
                     </ul>
