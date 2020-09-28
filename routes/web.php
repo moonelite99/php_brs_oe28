@@ -30,4 +30,8 @@ Route::group(['middleware' => 'localization'], function () {
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/books', 'BookController@show_all')->name('books');
+
+    Route::get('/book/{book}', 'BookController@show')->name('show_book');
 });

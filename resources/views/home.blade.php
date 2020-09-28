@@ -7,7 +7,7 @@
                 @foreach ($books as $book)
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="product-box-layout1">
-                            <figure class="item-figure"><a href="#"><img src="{{ asset($book->img_path) }}" alt="{{ trans('msg.book') }}"></a>
+                            <figure class="item-figure"><a href="{{ route('show_book', $book->id) }}"><img src="{{ asset($book->img_path) }}" alt="{{ trans('msg.book') }}"></a>
                             </figure>
                             <div class="item-content">
                                 <h3 class="item-title"><a href="#">{{ $book->title }}</a></h3>

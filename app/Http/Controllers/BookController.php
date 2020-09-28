@@ -23,6 +23,13 @@ class BookController extends Controller
         return view('books.index', compact('books'));
     }
 
+    public function show_all()
+    {
+        $books = Book::paginate(config('default.grid_book'));
+
+        return view('books', compact('books'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -68,7 +75,17 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $book = Book::findOrFail($id);
+            $selectedCategories = $book->categories;
+            $lastestBook = Book::orderByDesc('publish_date')->limit(config('default.limit_book'))->get();
+            $randomBook = Book::all()->random(config('book.suggest_num'));
+            $categories = Category::all();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('show_book', compact(['book', 'selectedCategories', 'lastestBook', 'randomBook', 'categories']));
     }
 
     /**
