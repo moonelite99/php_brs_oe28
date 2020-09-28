@@ -47,4 +47,11 @@ return [
     'create_success' => 'Tạo mới thành công',
     'pages' => 'trang',
     'unrated' => 'Chưa có đánh giá',
+    'edit' => 'Sửa',
+    'delete' => 'Xóa',
+    'find_fail' => 'Không tìm thấy!',
+    'update_successful' => 'Cập nhật thành công!',
+    'delete_successful' => 'Xóa thành công!',
+    'confirm' => 'Xác nhận',
+    'delete_confirm' => 'Bạn có chắc muốn xóa?',
 ];
