@@ -54,4 +54,6 @@ return [
     'delete_successful' => 'Deleted successfully!',
     'confirm' => 'Confirm',
     'delete_confirm' => 'Are you sure want to delete?',
+    'user' => 'User',
+    'add_user' => 'Add user',
 ];

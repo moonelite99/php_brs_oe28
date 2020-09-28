@@ -21,6 +21,8 @@ Route::group(['middleware' => 'localization'], function () {
         Route::get('/', 'HomeController@admin_index')->name('admin_index');
 
         Route::resource('books', 'BookController');
+
+        Route::resource('users', 'UserController');
     });
 
     Route::post('/lang', 'LangController@postLang')->name('switch_lang');
