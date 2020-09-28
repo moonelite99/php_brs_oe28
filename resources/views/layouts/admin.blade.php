@@ -45,6 +45,12 @@
                                 {{ trans('msg.book') }}
                             </a>
                         </li>
+                        <li class="active has-sub">
+                            <a href="{{ route('users.index') }}">
+                                <i class="fa fa-user"></i>&nbsp;
+                                {{ trans('msg.user') }}
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

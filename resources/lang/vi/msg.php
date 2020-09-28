@@ -54,4 +54,6 @@ return [
     'delete_successful' => 'Xóa thành công!',
     'confirm' => 'Xác nhận',
     'delete_confirm' => 'Bạn có chắc muốn xóa?',
+    'user' => 'Người dùng',
+    'add_user' => 'Thêm người dùng',
 ];
