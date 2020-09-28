@@ -62,4 +62,5 @@ return [
     'leave_review' => 'Để lại nhận xét',
     'content' => 'Nội dung',
     'rating' => 'Đánh giá',
+    'success' => 'Thành công',
 ];

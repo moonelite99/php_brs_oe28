@@ -6,4 +6,8 @@ return [
     'pagination' => 5,
     'grid_book' => 9,
     'limit_book' => 5,
+    'like_num' => 0,
+    'not_fav' => 0,
+    'fav' => 1,
+    'precision' => 1,
 ];
