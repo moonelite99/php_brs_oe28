@@ -21,6 +21,7 @@ return [
     'cultural' => 'Văn hóa',
     'medicine' => 'Y học',
     'coloring' => 'Tô màu',
+    'children' => 'Thiếu nhi',
     'username' => 'Tên đăng nhập',
     'password' => 'Mật khẩu',
     'remember_me' => 'Ghi nhớ đăng nhập',
@@ -56,4 +57,9 @@ return [
     'delete_confirm' => 'Bạn có chắc muốn xóa?',
     'user' => 'Người dùng',
     'add_user' => 'Thêm người dùng',
+    'lastest_books' => 'Sách mới nhất',
+    'may_like' => 'Bạn có thể thích',
+    'leave_review' => 'Để lại nhận xét',
+    'content' => 'Nội dung',
+    'rating' => 'Đánh giá',
 ];

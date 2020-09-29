@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="{{ asset('vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
     <script src="{{ asset('js/modernizr-3.6.0.min.js') }}"></script>
 </head>
 
@@ -44,10 +45,7 @@
                                         <a href="{{ route('home') }}">{{ trans('msg.home') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#">{{ trans('msg.category') }}</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">{{ trans('msg.book') }}</a>
+                                        <a href="{{ route('books') }}">{{ trans('msg.book') }}</a>
                                     </li>
                                     <li>
                                         <a href="#">{{ trans('msg.review') }}</a>

@@ -21,6 +21,7 @@ return [
     'medicine' => 'Medicine',
     'coloring' => 'Coloring',
     'comic' => 'Comic',
+    'children' => 'Children',
     'username' => 'Username',
     'password' => 'Password',
     'remember_me' => 'Remember me',
@@ -56,4 +57,9 @@ return [
     'delete_confirm' => 'Are you sure want to delete?',
     'user' => 'User',
     'add_user' => 'Add user',
+    'lastest_books' => 'Lastest Books',
+    'may_like' => 'You may like',
+    'leave_review' => 'Leave a review',
+    'content' => 'Content',
+    'rating' => 'Rating',
 ];
