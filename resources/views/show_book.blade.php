@@ -3,13 +3,25 @@
 @section('content')
     <section class="single-recipe-wrap-layout1 padding-bottom-50">
         @if (session('fail_status'))
-            <div class="alert alert-danger noti" style="text-align: center">
-                {{ session('fail_status') }}
+            <div class="toast noti text-danger" data-delay="{{ config('default.noti_time') }}">
+                <div class="toast-header">
+                    <strong class="mr-auto">{{ trans('msg.notification') }}</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                </div>
+                <div class="toast-body">
+                    {{ session('fail_status') }}
+                </div>
             </div>
         @endif
         @if (session('status'))
-            <div class="alert alert-success noti">
-                {{ session('status') }}
+            <div class="toast noti text-success" data-delay="{{ config('default.noti_time') }}">
+                <div class="toast-header">
+                    <strong class="mr-auto">{{ trans('msg.notification') }}</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                </div>
+                <div class="toast-body">
+                    {{ session('status') }}
+                </div>
             </div>
         @endif
         <div class="container">
@@ -89,23 +101,27 @@
                                 <div class="rate-wrapper">
                                     <div class="rate-label">{{ trans('msg.rating') }}</div>
                                     <div class="rate @if ($rated != config('default.rating')) selected @endif">
-                                        <div class="rate-item @if ($rated == 1) active @endif" id="rate-1"><i class="fa fa-star" aria-hidden="true"></i>
+                                        <div class="rate-item @if ($rated == 1) active @endif" id="rate-1">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
-                                        <div class="rate-item @if ($rated == 2) active @endif" id="rate-2"><i class="fa fa-star" aria-hidden="true"></i>
+                                        <div class="rate-item @if ($rated == 2) active @endif" id="rate-2">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
-                                        <div class="rate-item @if ($rated == 3) active @endif" id="rate-3"><i class="fa fa-star" aria-hidden="true"></i>
+                                        <div class="rate-item @if ($rated == 3) active @endif" id="rate-3">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
-                                        <div class="rate-item @if ($rated == 4) active @endif" id="rate-4"><i class="fa fa-star" aria-hidden="true"></i>
+                                        <div class="rate-item @if ($rated == 4) active @endif" id="rate-4">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
-                                        <div class="rate-item @if ($rated == 5) active @endif" id="rate-5"><i class="fa fa-star" aria-hidden="true"></i>
+                                        <div class="rate-item @if ($rated == 5) active @endif" id="rate-5">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 form-group">
                                         <label>{{ trans('msg.content') }}</label>
-                                        <textarea placeholder="" class="textarea form-control width-100"
-                                            name="content"></textarea>
+                                        <textarea name="content"></textarea>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <input type="hidden" placeholder="" class="form-control width-100" name="user_id"
@@ -168,34 +184,33 @@
                                 data-r-medium-dots="false" data-r-large="1" data-r-large-nav="true"
                                 data-r-large-dots="false" data-r-extra-large="1" data-r-extra-large-nav="true"
                                 data-r-extra-large-dots="false">
-                                @foreach ($randomBook as $book)
-                                    <div class="featured-box-layout1">
-                                        <a href="{{ route('show_book', $book->id) }}">
-                                            <div class="item-img">
-                                                <img class="img-300" src="{{ asset($book->img_path) }}" class="img-fluid">
-                                            </div>
-                                        </a>
+                            @foreach ($randomBook as $book)
+                            <div class="featured-box-layout1">
+                                <a href="{{ route('show_book', $book->id) }}">
+                                    <div class="item-img">
+                                        <img class="img-300" src="{{ asset($book->img_path) }}" class="img-fluid">
                                     </div>
-                                @endforeach
+                                </a>
                             </div>
+                            @endforeach
                         </div>
                     </div>
-                    <br>
-                    <div class="widget">
-                        <div class="section-heading heading-dark">
-                            <h3 class="item-heading">{{ trans('msg.category') }}</h3>
-                        </div>
-                        <div class="widget-categories">
-                            <ul>
-                                @foreach ($categories as $category)
-                                    <li>
-                                        <a href="#">{{ trans('msg.' . $category->name) }}
-                                            <span>{{ $category->books->count() }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                </div>
+                <br>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">{{ trans('msg.category') }}</h3>
+                    </div>
+                    <div class="widget-categories">
+                        <ul>
+                            @foreach ($categories as $category)
+                            <li>
+                                <a href="#">{{ trans('msg.' . $category->name) }}
+                                    <span>{{ $category->books->count() }}</span>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

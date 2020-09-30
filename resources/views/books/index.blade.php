@@ -2,13 +2,25 @@
 
 @section('content')
     @if (session('fail_status'))
-        <div class="alert alert-danger pad-noti">
-            {{ session('fail_status') }}
+        <div class="toast noti text-danger" data-delay="{{ config('default.noti_time') }}">
+            <div class="toast-header">
+                <strong class="mr-auto">{{ trans('msg.notification') }}</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+            </div>
+            <div class="toast-body">
+                {{ session('fail_status') }}
+            </div>
         </div>
     @endif
     @if (session('status'))
-        <div class="alert alert-success pad-noti">
-            {{ session('status') }}
+        <div class="toast noti text-success" data-delay="{{ config('default.noti_time') }}">
+            <div class="toast-header">
+                <strong class="mr-auto">{{ trans('msg.notification') }}</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+            </div>
+            <div class="toast-body">
+                {{ session('status') }}
+            </div>
         </div>
     @endif
     <div class="row">
