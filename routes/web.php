@@ -34,4 +34,6 @@ Route::group(['middleware' => 'localization'], function () {
     Route::get('/books', 'BookController@show_all')->name('books');
 
     Route::get('/book/{book}', 'BookController@show')->name('show_book');
+
+    Route::resource('reviews', 'ReviewController');
 });

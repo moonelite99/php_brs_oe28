@@ -2,6 +2,16 @@
 
 @section('content')
     <section class="single-recipe-wrap-layout1 padding-bottom-50">
+        @if (session('fail_status'))
+            <div class="alert alert-danger noti" style="text-align: center">
+                {{ session('fail_status') }}
+            </div>
+        @endif
+        @if (session('status'))
+            <div class="alert alert-success noti">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="container">
             <div class="row gutters-60">
                 <div class="col-lg-8">
@@ -74,30 +84,36 @@
                             <div class="section-heading heading-dark">
                                 <h2 class="item-heading">{{ trans('msg.leave_review') }}</h2>
                             </div>
-                            <form class="leave-form-box">
+                            <form class="leave-form-box" method="POST" action="{{ route('reviews.store') }}">
+                                @csrf
                                 <div class="rate-wrapper">
                                     <div class="rate-label">{{ trans('msg.rating') }}</div>
-                                    <div class="rate">
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                        <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
+                                    <div class="rate @if ($rated != config('default.rating')) selected @endif">
+                                        <div class="rate-item @if ($rated == 1) active @endif" id="rate-1"><i class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="rate-item @if ($rated == 2) active @endif" id="rate-2"><i class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="rate-item @if ($rated == 3) active @endif" id="rate-3"><i class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="rate-item @if ($rated == 4) active @endif" id="rate-4"><i class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="rate-item @if ($rated == 5) active @endif" id="rate-5"><i class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-12 form-group">
-                                        <label>{{ trans('msg.title') }}</label>
-                                        <input type="text" placeholder="" class="form-control width-100" name="name"
-                                            required>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
                                     <div class="col-12 form-group">
                                         <label>{{ trans('msg.content') }}</label>
-                                        <textarea placeholder="" class="textarea form-control width-100" name="message"
-                                            required></textarea>
+                                        <textarea placeholder="" class="textarea form-control width-100"
+                                            name="content"></textarea>
                                         <div class="help-block with-errors"></div>
                                     </div>
+                                    <input type="hidden" placeholder="" class="form-control width-100" name="user_id"
+                                        required value="{{ Auth::user()->id }}">
+                                    <input type="hidden" placeholder="" class="form-control width-100" name="book_id"
+                                        required value="{{ $book->id }}">
+                                    <input type="hidden" placeholder="" class="form-control width-100" name="rating"
+                                        id="rating" value="{{ $rated }}" required>
                                     <div class="col-12 form-group mb-0">
                                         <button type="submit" class="item-btn">{{ trans('msg.submit') }}</button>
                                     </div>

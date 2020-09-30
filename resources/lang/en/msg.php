@@ -62,4 +62,5 @@ return [
     'leave_review' => 'Leave a review',
     'content' => 'Content',
     'rating' => 'Rating',
+    'success' => 'Success',
 ];

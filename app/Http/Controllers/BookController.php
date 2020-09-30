@@ -6,8 +6,11 @@ use App\Http\Requests\BookFormRequest;
 use App\Http\Requests\UpdateBookFormRequest;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -18,14 +21,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(config('default.pagination'));
+        $books = Book::orderByDesc('created_at')->paginate(config('default.pagination'));
 
         return view('books.index', compact('books'));
     }
 
     public function show_all()
     {
-        $books = Book::paginate(config('default.grid_book'));
+        $books = Book::orderByDesc('created_at')->paginate(config('default.grid_book'));
 
         return view('books', compact('books'));
     }
@@ -81,11 +84,23 @@ class BookController extends Controller
             $lastestBook = Book::orderByDesc('publish_date')->limit(config('default.limit_book'))->get();
             $randomBook = Book::all()->random(config('book.suggest_num'));
             $categories = Category::all();
+            $rated = config('default.rating');
+            $reviews = Review::where('book_id', $id)->get();
+            if ($book->users()->where('user_id', Auth::user()->id)->exists()) {
+                $rated = $book->users()->firstWhere('user_id', Auth::user()->id)->pivot->rating;
+            }
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
         }
 
-        return view('show_book', compact(['book', 'selectedCategories', 'lastestBook', 'randomBook', 'categories']));
+        return view('show_book', compact([
+            'book',
+            'selectedCategories',
+            'lastestBook',
+            'randomBook',
+            'categories',
+            'rated',
+            'reviews']));
     }
 
     /**
