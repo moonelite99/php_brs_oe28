@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ trans('Cirilla') }} | {{ trans('msg.home') }} </title>
+    <title>{{ trans('Cirilla') }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ asset('vendor/bootstrap-4.1/bootstrap.min.css') }}" rel="stylesheet" media="all">
@@ -44,7 +44,10 @@
                             <nav class="site-nav">
                                 <ul id="site-menu" class="site-menu">
                                     <li>
-                                        <a href="{{ route('home') }}">{{ trans('msg.home') }}</a>
+                                        <div class="site-logo-desktop">
+                                            <a href="{{ route('home') }}" >
+                                                <img  src="{{ asset(config('img.light_logo')) }}"></a>
+                                        </div>
                                     </li>
                                     <li>
                                         <a href="{{ route('books') }}">{{ trans('msg.book') }}</a>

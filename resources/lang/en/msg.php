@@ -65,4 +65,9 @@ return [
     'content' => 'Content',
     'rating' => 'Rating',
     'success' => 'Success',
+    'review_about' => 'Review about ',
+    'avg_rating' => 'Avarage rating:',
+    'total_reviews' => 'Total reviews:',
+    'book_reviews' => 'Book reviews',
+    'read_more' => 'Read more',
 ];
