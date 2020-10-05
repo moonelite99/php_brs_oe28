@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserFormRequest;
 use App\Http\Requests\UserFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(config('default.pagination'));
+        $users = User::orderByDesc('created_at')->paginate(config('default.pagination'));
 
         return view('users.index', compact('users'));
     }
@@ -39,7 +40,12 @@ class UserController extends Controller
      */
     public function store(UserFormRequest $request)
     {
-        User::create($request->all());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ]);
 
         return redirect()->route('users.create')->with('status', trans('msg.create_success'));
     }
@@ -79,11 +85,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserFormRequest $request, $id)
+    public function update(UpdateUserFormRequest $request, $id)
     {
         try {
             $user = User::findOrFail($id);
-            $user->update($request->all());
+            if ($request->password == '') {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                ]);
+            }
         } catch (ModelNotFoundException $e) {
             return redirect()->route('users.index')->with('fail_status', trans('msg.find_fail'));
         }

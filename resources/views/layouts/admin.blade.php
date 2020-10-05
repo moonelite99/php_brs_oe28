@@ -22,7 +22,7 @@
     <link href="{{ asset('css/admin/theme.css') }}" rel="stylesheet" media="all">
 </head>
 
-<body class="animsition">
+<body>
     <div class="page-wrapper">
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
@@ -103,7 +103,6 @@
     <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('vendor/wow/wow.min.js') }}"></script>
-    <script src="{{ asset('vendor/animsition/animsition.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
     <script src="{{ asset('vendor/counter-up/jquery.waypoints.min.js') }}"></script>
     <script src="{{ asset('vendor/counter-up/jquery.counterup.min.js') }}"></script>

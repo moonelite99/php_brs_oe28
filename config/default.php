@@ -10,4 +10,5 @@ return [
     'not_fav' => 0,
     'fav' => 1,
     'precision' => 1,
+    'noti_time' => 5000,
 ];

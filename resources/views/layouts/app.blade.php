@@ -8,6 +8,7 @@
     <title>{{ trans('Cirilla') }} | {{ trans('msg.home') }} </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{{ asset('vendor/bootstrap-4.1/bootstrap.min.css') }}" rel="stylesheet" media="all">
     <link rel="shortcut icon" href="{{ asset(config('img.favicon')) }}">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="{{ asset('vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
     <script src="{{ asset('js/modernizr-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 </head>
 
 <body>
@@ -176,9 +178,9 @@
             <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
         </form>
     </div>
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/smoothscroll.min.js') }}"></script>
