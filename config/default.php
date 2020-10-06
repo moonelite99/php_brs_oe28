@@ -11,4 +11,6 @@ return [
     'fav' => 1,
     'precision' => 1,
     'noti_time' => 5000,
+    'contact_row' => 11,
+    'req_status' => 0,
 ];

@@ -34,7 +34,7 @@
                     @csrf
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.title') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.title') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="text" name="title" class="form-control @error ('title') is-invalid @enderror"
@@ -48,7 +48,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.author') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.author') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="text" name="author" class="form-control @error ('author') is-invalid @enderror"
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.publish_date') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.publish_date') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="date" name="publish_date"
@@ -77,7 +77,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.pages_number') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.pages_number') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="number" name="pages_number"
@@ -92,7 +92,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="textarea-input" class=" form-control-label">{{ trans('msg.description') }}</label>
+                            <label for="textarea-input" class=" form-control-label required">{{ trans('msg.description') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <textarea name="description" class="form-control @error ('description') is-invalid @enderror"
@@ -106,7 +106,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="multiple-select" class=" form-control-label">{{ trans('msg.category') }}</label>
+                            <label for="multiple-select" class=" form-control-label required">{{ trans('msg.category') }}</label>
                         </div>
                         <div class="col col-md-9">
                             <select name="categories[]" id="multiple-select" multiple=""
@@ -124,7 +124,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="file-input" class=" form-control-label">{{ trans('msg.image') }}</label>
+                            <label for="file-input" class=" form-control-label required">{{ trans('msg.image') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="file" id="file-input" name="image"

@@ -70,4 +70,6 @@ return [
     'total_reviews' => 'Số bài đánh giá:',
     'book_reviews' => 'Cảm nhận về sách',
     'read_more' => 'Đọc thêm',
+    'send_us_req' => 'Gửi yêu cầu',
+    'type_content' => 'Nhập nội dung',
 ];

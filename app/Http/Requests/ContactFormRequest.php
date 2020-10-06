@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ReviewFormRequest extends FormRequest
+class ContactFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,6 +14,10 @@ class ReviewFormRequest extends FormRequest
      */
     public function authorize()
     {
+        if (Auth::user()->role != config('role.user')) {
+            return false;
+        }
+
         return true;
     }
 
@@ -25,9 +29,7 @@ class ReviewFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'rating' => 'required',
-            'book_id' => 'required',
+            'contact' => 'required',
             'user_id' => 'required',
         ];
     }
