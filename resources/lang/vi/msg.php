@@ -65,4 +65,9 @@ return [
     'rating' => 'Đánh giá',
     'success' => 'Thành công',
     'notification' => 'Thông báo',
+    'review_about' => 'Cảm nhận về ',
+    'avg_rating' => 'Đánh giá trung bình:',
+    'total_reviews' => 'Số bài đánh giá:',
+    'book_reviews' => 'Cảm nhận về sách',
+    'read_more' => 'Đọc thêm',
 ];

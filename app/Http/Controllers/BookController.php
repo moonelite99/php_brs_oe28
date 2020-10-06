@@ -85,9 +85,13 @@ class BookController extends Controller
             $randomBook = Book::all()->random(config('book.suggest_num'));
             $categories = Category::all();
             $rated = config('default.rating');
-            $reviews = Review::where('book_id', $id)->get();
+            $reviewed = '';
+            $reviews = Review::where('book_id', $id)->orderByDesc('updated_at')->get();
             if ($book->users()->where('user_id', Auth::user()->id)->exists()) {
                 $rated = $book->users()->firstWhere('user_id', Auth::user()->id)->pivot->rating;
+                if ($rated != config('default.rating')) {
+                    $reviewed = Review::where('book_id', $id)->where('user_id', Auth::user()->id)->first();
+                }
             }
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
@@ -100,7 +104,9 @@ class BookController extends Controller
             'randomBook',
             'categories',
             'rated',
-            'reviews']));
+            'reviews',
+            'reviewed',
+            ]));
     }
 
     /**
