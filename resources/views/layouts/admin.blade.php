@@ -51,6 +51,12 @@
                                 {{ trans('msg.user') }}
                             </a>
                         </li>
+                        <li class="active has-sub">
+                            <a href="{{ route('requests', config('default.req_unsolved')) }}">
+                                <i class="fas fa-ticket-alt"></i>&nbsp;
+                                {{ trans('msg.requests') }}
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

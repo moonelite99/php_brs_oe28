@@ -72,4 +72,12 @@ return [
     'read_more' => 'Đọc thêm',
     'send_us_req' => 'Gửi yêu cầu',
     'type_content' => 'Nhập nội dung',
+    'requests' => 'Yêu cầu',
+    'close' => 'Đóng',
+    'sender' => 'Người gửi',
+    'show' => 'Xem',
+    'unsolved_request' => 'Yêu cầu chưa được giải quyết',
+    'solved_request' => 'Yêu cầu đã được giải quyết',
+    'mark_as_solved' => 'Đã giải quyết',
+    'manager' => 'Người quản lý',
 ];

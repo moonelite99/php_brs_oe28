@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactFormRequest;
 use App\Models\Request as Contact;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ContactController extends Controller
 {
@@ -16,6 +17,13 @@ class ContactController extends Controller
     public function index()
     {
         //
+    }
+
+    public function solve($status)
+    {
+        $contacts = Contact::with('user', 'manager')->where('status', $status)->paginate(config('default.pagination'));
+
+        return view('contacts.index', compact(['contacts', 'status']));
     }
 
     /**
@@ -38,11 +46,11 @@ class ContactController extends Controller
     {
         Contact::create([
             'content' => $request->contact,
-            'status' => config('default.req_status'),
+            'status' => config('default.req_unsolved'),
             'user_id' => $request->user_id,
         ]);
 
-        return redirect()->route('contact.create')->with('status', trans('msg.create_success'));
+        return redirect()->route('contacts.create')->with('status', trans('msg.create_success'));
     }
 
     /**
@@ -76,7 +84,14 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->update($request->all());
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('requests')->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return redirect()->back()->with('status', trans('msg.update_successful'));
     }
 
     /**
@@ -87,6 +102,13 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->delete();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('contacts.index')->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return redirect()->back()->with('status', trans('msg.delete_successful'));
     }
 }

@@ -27,7 +27,7 @@
         <div class="section-heading heading-dark">
             <h3 class="item-heading-big">{{ trans('msg.send_us_req') }}</h3>
         </div>
-        <form id="contact-form" class="contact-form-box" method="POST" action="{{ route('contact.store') }}">
+        <form id="contact-form" class="contact-form-box" method="POST" action="{{ route('contacts.store') }}">
             @csrf
             <div class="row">
                 <div class="col-12 form-group">

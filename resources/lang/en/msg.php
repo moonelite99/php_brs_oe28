@@ -72,4 +72,12 @@ return [
     'read_more' => 'Read more',
     'send_us_req' => 'Send us request',
     'type_content' => 'Type content',
+    'requests' => 'Requests',
+    'close' => 'Close',
+    'sender' => 'Sender',
+    'show' => 'Show',
+    'unsolved_request' => 'Unsolved requests',
+    'solved_request' => 'Solved requests',
+    'mark_as_solved' => 'Mark as solved',
+    'manager' => 'Manager',
 ];

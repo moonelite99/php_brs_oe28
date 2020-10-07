@@ -57,7 +57,7 @@
                                     </li>
                                     @auth
                                         @if (Auth::user()->role == config('role.user'))
-                                            <li><a href="{{ route('contact.create') }}">{{ trans('msg.contact') }}</a></li>
+                                            <li><a href="{{ route('contacts.create') }}">{{ trans('msg.contact') }}</a></li>
                                         @endif
                                     @endauth
                                 </ul>
