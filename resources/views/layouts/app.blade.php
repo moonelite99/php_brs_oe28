@@ -55,7 +55,11 @@
                                     <li>
                                         <a href="#">{{ trans('msg.review') }}</a>
                                     </li>
-                                    <li><a href="#">{{ trans('msg.contact') }}</a></li>
+                                    @auth
+                                        @if (Auth::user()->role == config('role.user'))
+                                            <li><a href="{{ route('contact.create') }}">{{ trans('msg.contact') }}</a></li>
+                                        @endif
+                                    @endauth
                                 </ul>
                             </nav>
                         </div>

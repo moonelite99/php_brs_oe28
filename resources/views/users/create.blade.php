@@ -34,7 +34,7 @@
                     @csrf
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.name') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.name') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="text" name="name" class="form-control @error ('name') is-invalid @enderror"
@@ -48,7 +48,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.email') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.email') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="email" name="email" class="form-control @error ('email') is-invalid @enderror"
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.username') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.username') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="text" name="username" class="form-control @error ('username') is-invalid @enderror"
@@ -76,7 +76,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.password') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.password') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="password" name="password"
@@ -91,7 +91,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">{{ trans('msg.pass_confirm') }}</label>
+                            <label for="text-input" class=" form-control-label required">{{ trans('msg.pass_confirm') }}</label>
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="password" name="password_confirmation"

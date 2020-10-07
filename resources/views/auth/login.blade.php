@@ -12,7 +12,7 @@
                                 @csrf
                                 <div class="form-group-b row">
                                     <label for="username"
-                                        class="col-md-4 col-form-label text-md-right">{{ trans('msg.username') }}</label>
+                                        class="col-md-4 col-form-label text-md-right required">{{ trans('msg.username') }}</label>
                                     <div class="col-md-6">
                                         <input id="username" type="text"
                                             class="form-control-b @error ('username') is-invalid @enderror" name="username"
@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="form-group-b row">
                                     <label for="password"
-                                        class="col-md-4 col-form-label text-md-right">{{ trans('msg.password') }}</label>
+                                        class="col-md-4 col-form-label text-md-right required">{{ trans('msg.password') }}</label>
                                     <div class="col-md-6">
                                         <input id="password" type="password"
                                             class="form-control-b @error ('password') is-invalid @enderror" name="password"

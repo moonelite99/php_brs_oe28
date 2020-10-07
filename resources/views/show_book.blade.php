@@ -185,7 +185,7 @@
                                     <div class="row">
                                         <div class="col-12 form-group">
                                             <label>{{ trans('msg.title') }}</label>
-                                            <input class="col-12" type="text" name="title" value="{{ $reviewed->title }}">
+                                            <input class="col-12" type="text" name="title" value="{{ $reviewed->title }}" required>
                                             <div class="help-block with-errors"></div>
                                         </div>
                                         <div class="col-12 form-group">

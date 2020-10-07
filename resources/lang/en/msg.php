@@ -70,4 +70,6 @@ return [
     'total_reviews' => 'Total reviews:',
     'book_reviews' => 'Book reviews',
     'read_more' => 'Read more',
+    'send_us_req' => 'Send us request',
+    'type_content' => 'Type content',
 ];
