@@ -23,6 +23,8 @@ Route::group(['middleware' => 'localization'], function () {
         Route::resource('books', 'BookController');
 
         Route::resource('users', 'UserController');
+
+        Route::get('/requests/{status}', 'ContactController@solve')->name('requests');
     });
 
     Route::post('/lang', 'LangController@postLang')->name('switch_lang');
@@ -37,5 +39,5 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::resource('reviews', 'ReviewController');
 
-    Route::resource('contact', 'ContactController');
+    Route::resource('contacts', 'ContactController');
 });

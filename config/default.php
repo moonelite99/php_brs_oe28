@@ -12,5 +12,6 @@ return [
     'precision' => 1,
     'noti_time' => 5000,
     'contact_row' => 11,
-    'req_status' => 0,
+    'req_unsolved' => 0,
+    'req_solved' => 1,
 ];

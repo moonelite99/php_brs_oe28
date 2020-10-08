@@ -72,7 +72,7 @@
                                                         </div>
                                                     </form>
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
+                                                        data-dismiss="modal">{{ trans('msg.close') }}</button>
                                                 </div>
                                             </div>
                                         </div>
