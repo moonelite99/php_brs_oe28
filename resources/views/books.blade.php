@@ -2,29 +2,7 @@
 
 @section('content')
     <section class="padding-bottom-18">
-        @if (session('fail_status'))
-            <div class="toast noti text-danger" data-delay="{{ config('default.noti_time') }}">
-                <div class="toast-header">
-                    <strong class="mr-auto">{{ trans('msg.notification') }}</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                </div>
-                <div class="toast-body">
-                    {{ session('fail_status') }}
-                </div>
-            </div>
-        @endif
-        @if (session('status'))
-            <div class="toast noti text-success show" data-delay="{{ config('default.noti_time') }}">
-                <div class="toast-header">
-                    <strong class="mr-auto">{{ trans('msg.notification') }}</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                </div>
-                <div class="toast-body">
-                    {{ session('status') }}
-                </div>
-            </div>
-        @endif
-        <div class="container">
+    <div class="container">
             <div class="row">
                 @foreach ($books as $book)
                     <div class="col-lg-4 col-md-6 col-sm-12">

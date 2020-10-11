@@ -80,4 +80,6 @@ return [
     'solved_request' => 'Yêu cầu đã được giải quyết',
     'mark_as_solved' => 'Đã giải quyết',
     'manager' => 'Người quản lý',
+    'sent_req' => 'Yêu cầu đã gửi',
+    'sent_time' => 'Thời gian gửi',
 ];
