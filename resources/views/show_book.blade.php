@@ -102,7 +102,7 @@
                                                                 <i class="far fa-star star"></i>
                                                             @endfor
                                                         </ul>
-                                                        <a href="#" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a>
+                                                        <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -340,4 +340,6 @@
             </div>
         </div>
     </section>
+    <script src="{{ asset('js/ckedit.js') }}"></script>
 @endsection
+

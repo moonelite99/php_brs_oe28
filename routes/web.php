@@ -40,4 +40,6 @@ Route::group(['middleware' => 'localization'], function () {
     Route::resource('reviews', 'ReviewController');
 
     Route::resource('contacts', 'ContactController');
+
+    Route::resource('comments', 'CommentController');
 });

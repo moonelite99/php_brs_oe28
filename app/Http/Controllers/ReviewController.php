@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReviewFormRequest;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -74,7 +76,25 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $review = Review::findOrFail($id);
+            $book = $review->book;
+            $lastestBook = Book::orderByDesc('publish_date')->limit(config('default.limit_book'))->get();
+            $randomBook = Book::all()->random(config('book.suggest_num'));
+            $categories = Category::all();
+            $comments = Comment::with('user')->where('review_id', $id)->orderBy('created_at')->get();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('reviews.show', compact([
+            'review',
+            'book',
+            'lastestBook',
+            'randomBook',
+            'categories',
+            'comments',
+        ]));
     }
 
     /**

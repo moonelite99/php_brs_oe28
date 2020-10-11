@@ -82,4 +82,5 @@ return [
     'manager' => 'Manager',
     'sent_req' => 'Sent requests',
     'sent_time' => 'Sent time',
+    'comment' => 'Comment',
 ];
