@@ -80,4 +80,6 @@ return [
     'solved_request' => 'Solved requests',
     'mark_as_solved' => 'Mark as solved',
     'manager' => 'Manager',
+    'sent_req' => 'Sent requests',
+    'sent_time' => 'Sent time',
 ];

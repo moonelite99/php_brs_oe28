@@ -6,6 +6,7 @@ use App\Http\Requests\ContactFormRequest;
 use App\Models\Request as Contact;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -16,7 +17,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::where('user_id', Auth::user()->id)->orderByDesc('created_at')->paginate(config('default.pagination'));
+
+        return view('sent_requests', compact('contacts'));
     }
 
     public function solve($status)
