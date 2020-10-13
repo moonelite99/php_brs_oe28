@@ -53,20 +53,21 @@
                                         <input type="hidden" id="book_id" value="{{ $book->id }}">
                                         <li class="single-meta">
                                             <a href="#">
-                                                    <i class="fas fa-bookmark bookmark @if ($status == config('read.unread') || $status == config('read.read')) d-none @endif" data-status="{{ config('read.unread') }}" id="reading"></i>
-                                                    <i class="far fa-bookmark bookmark @if ($status == config('read.reading')) d-none @endif" data-status="{{ config('read.reading') }}" id="unreading"></i>
+                                                <span style="font-size: 20px"></span>
+                                                    <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.cancel_mark_as_reading') }}</p>" class="fas fa-bookmark bookmark  @if ($status == config('read.unread') || $status == config('read.read')) d-none @endif" data-status="{{ config('read.unread') }}" id="reading"></i>
+                                                    <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.mark_as_reading') }}</p>" class="far fa-bookmark bookmark @if ($status == config('read.reading')) d-none @endif" data-status="{{ config('read.reading') }}" id="unreading"></i>
                                             </a>
                                         </li>
                                         <li class="single-meta">
                                             <a href="#">
-                                                    <i class="fas fa-check-circle bookmark @if ($status == config('read.unread') || $status == config('read.reading')) d-none @endif" data-status="{{ config('read.unread') }}" id="read"></i>
-                                                    <i class="far fa-check-circle bookmark @if ($status == config('read.read')) d-none @endif" data-status="{{ config('read.read') }}" id="unread"></i>
+                                                    <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.cancel_mark_as_read') }}</p>" class="fas fa-check-circle bookmark @if ($status == config('read.unread') || $status == config('read.reading')) d-none @endif" data-status="{{ config('read.unread') }}" id="read"></i>
+                                                    <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.mark_as_read') }}</p>" class="far fa-check-circle bookmark @if ($status == config('read.read')) d-none @endif" data-status="{{ config('read.read') }}" id="unread"></i>
                                             </a>
                                         </li>
                                         <li class="single-meta">
                                             <a href="#">
-                                                    <i class="fas fa-heart bookmark @if ($favorite == config('default.not_fav')) d-none @endif" data-favorite="{{ config('read.unread') }}" id="fav"></i>
-                                                    <i class="far fa-heart bookmark @if ($favorite == config('default.fav')) d-none @endif" data-favorite="{{ config('default.fav') }}" id="unfav"></i>
+                                                    <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.cancel_mark_as_fav') }}</p>" class="fas fa-heart bookmark @if ($favorite == config('default.not_fav')) d-none @endif" data-favorite="{{ config('read.unread') }}" id="fav"></i>
+                                                    <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.mark_as_fav') }}</p>" class="far fa-heart bookmark @if ($favorite == config('default.fav')) d-none @endif" data-favorite="{{ config('default.fav') }}" id="unfav"></i>
                                             </a>
                                         </li>
                                     </div>
@@ -140,7 +141,7 @@
                                     <ul class="inner-tag">
                                         @foreach ($selectedCategories as $category)
                                             <li>
-                                                <a href="#">{{ trans('msg.' . $category->name) }}</a>
+                                                <a href="{{ route('categorized_book', $category->id) }}">{{ trans('msg.' . $category->name) }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -351,7 +352,7 @@
                             <ul>
                                 @foreach ($categories as $category)
                                     <li>
-                                        <a href="#">{{ trans('msg.' . $category->name) }}
+                                        <a href="{{ route('categorized_book', $category->id) }}">{{ trans('msg.' . $category->name) }}
                                             <span>{{ $category->books->count() }}</span>
                                         </a>
                                     </li>

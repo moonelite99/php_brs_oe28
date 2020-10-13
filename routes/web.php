@@ -54,4 +54,10 @@ Route::group(['middleware' => 'localization'], function () {
     Route::get('/books/reading', 'BookController@reading')->name('reading_book');
 
     Route::get('/books/favorite', 'BookController@favorite')->name('fav_book');
+
+    Route::post('/search', 'BookController@search');
+
+    Route::get('/category', 'BookController@getCategory');
+
+    Route::get('/books/category/{category}', 'BookController@categorize')->name('categorized_book');
 });

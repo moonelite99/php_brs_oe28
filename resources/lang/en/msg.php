@@ -89,4 +89,10 @@ return [
     'all_book' => 'All books',
     'fav_book' => 'Favorite books',
     'reading_book' => 'Reading books',
+    'cancel_mark_as_reading' => 'Cancel mark as reading',
+    'cancel_mark_as_read' => 'Cancel mark as read',
+    'cancel_mark_as_fav' => 'Cancel mark as favorite',
+    'mark_as_reading' => 'Mark as reading',
+    'mark_as_read' => 'Mark as read',
+    'mark_as_fav' => 'Mark as favorite',
 ];
