@@ -22,7 +22,7 @@
     <link href="{{ asset('vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
     <script src="{{ asset('js/modernizr-3.6.0.min.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 </head>
 
 <body>

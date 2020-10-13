@@ -262,6 +262,16 @@ class BookController extends Controller
     {
         try {
             $book = Book::findOrFail($id);
+            $reviews = $book->reviews();
+            foreach ($reviews as $review) {
+                $comments = $review->comments();
+                foreach ($comments as $comment) {
+                    $comment->likes()->delete();
+                }
+                $comments->delete();
+                $review->likes()->delete();
+                $review->delete();
+            }
             $book->delete();
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));

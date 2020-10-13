@@ -57,7 +57,7 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::post('/search', 'BookController@search');
 
-    Route::get('/category', 'BookController@category');
+    Route::get('/category', 'BookController@getCategory');
 
     Route::get('/books/category/{category}', 'BookController@categorize')->name('categorized_book');
 });

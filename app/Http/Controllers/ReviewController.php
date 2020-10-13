@@ -145,6 +145,12 @@ class ReviewController extends Controller
             $book = Book::findOrFail($review->book_id);
             $user->books()->syncWithoutDetaching([$review->book_id => ['rating' => config('default.rating')]]);
             $this->rating($book);
+            $comments = $review->comments();
+            foreach ($comments as $comment) {
+                $comment->likes()->delete();
+            }
+            $comments->delete();
+            $review->likes()->delete();
             $review->delete();
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
