@@ -15,6 +15,7 @@ class EditBooksTable extends Migration
     {
         Schema::table('books', function (Blueprint $table) {
             $table->longText('description')->change();
+            $table->float('rating')->change();
         });
     }
 
@@ -27,6 +28,7 @@ class EditBooksTable extends Migration
     {
         Schema::table('books', function (Blueprint $table) {
             $table->string('description')->change();
+            $table->integer('rating')->change();
         });
     }
 }

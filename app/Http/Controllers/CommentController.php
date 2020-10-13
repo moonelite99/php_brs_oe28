@@ -109,6 +109,7 @@ class CommentController extends Controller
     {
         try {
             $comment = Comment::findOrFail($id);
+            $comment->likes()->delete();
             $comment->delete();
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));

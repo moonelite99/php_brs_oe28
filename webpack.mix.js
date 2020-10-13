@@ -12,4 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/categorize.js', 'public/js')
+    .js('resources/js/ckedit.js', 'public/js')
+    .js('resources/js/comment.js', 'public/js')
+    .js('resources/js/home.js', 'public/js')
+    .js('resources/js/like.js', 'public/js')
+    .js('resources/js/mark.js', 'public/js')
+    .js('resources/js/search.js', 'public/js')
+    .js('resources/js/bootstrap.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
