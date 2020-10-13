@@ -2,8 +2,8 @@
 
 @section('content')
     <section class="padding-bottom-18">
-        <div class="section-heading3 heading-dark col-10 offset-1">
-            <h2 class="item-heading">{{ trans('msg.all_book') }}</h2>
+        <div class="section-heading3 heading-dark">
+            <h2 class="item-heading">{{ trans('msg.fav_book') }}</h2>
         </div>
         <div class="container">
             <div class="row">

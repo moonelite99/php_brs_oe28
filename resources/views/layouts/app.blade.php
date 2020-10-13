@@ -73,9 +73,29 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('books') }}">{{ trans('msg.book') }}</a>
+                                        <ul class="dropdown-menu-col-1 just-left">
+                                            <li>
+                                                <a href="{{ route('fav_book') }}">
+                                                    {{ trans('msg.fav_book') }}
+                                                </a>
+                                                <a href="{{ route('reading_book') }}">
+                                                    {{ trans('msg.reading_book') }}
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="#">{{ trans('msg.review') }}</a>
+                                        <a href="#">{{ trans('msg.history') }}</a>
+                                        <ul class="dropdown-menu-col-1 just-left">
+                                            <li>
+                                                <a href="{{ route('review_history') }}">
+                                                    {{ trans('msg.written_review') }}
+                                                </a>
+                                                <a href="{{ route('read_history') }}">
+                                                    {{ trans('msg.read_book') }}
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     @auth
                                         @if (Auth::user()->role == config('role.user'))

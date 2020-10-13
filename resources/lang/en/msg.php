@@ -83,4 +83,10 @@ return [
     'sent_req' => 'Sent requests',
     'sent_time' => 'Sent time',
     'comment' => 'Comment',
+    'history' => 'History',
+    'written_review' => 'Written reviews',
+    'read_book' => 'Read books',
+    'all_book' => 'All books',
+    'fav_book' => 'Favorite books',
+    'reading_book' => 'Reading books',
 ];

@@ -42,4 +42,16 @@ Route::group(['middleware' => 'localization'], function () {
     Route::resource('contacts', 'ContactController');
 
     Route::resource('comments', 'CommentController');
+
+    Route::post('/likes', 'MarkingController@like');
+
+    Route::post('/marks', 'MarkingController@mark');
+
+    Route::get('/history/reviews', 'ReviewController@history')->name('review_history');
+
+    Route::get('/history/books', 'BookController@history')->name('read_history');
+
+    Route::get('/books/reading', 'BookController@reading')->name('reading_book');
+
+    Route::get('/books/favorite', 'BookController@favorite')->name('fav_book');
 });

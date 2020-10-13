@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <section class="single-recipe-wrap-layout1 padding-bottom-50">
         <div class="container">
             <div class="row gutters-60">
@@ -8,7 +9,7 @@
                     <div class="single-recipe-layout1">
                         <h2 class="item-title">{{ $book->title }}</h2>
                         <div class="row mb-4">
-                            <div class="col-xl-9 col-12">
+                            <div class="col-xl-12 col-12">
                                 <ul class="entry-meta">
                                     <li class="single-meta">
                                         <a href="#">
@@ -47,6 +48,28 @@
                                             </ul>
                                         @endif
                                     </li>
+                                    <div class="pull-right">
+                                        <input type="hidden" id="user_id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" id="book_id" value="{{ $book->id }}">
+                                        <li class="single-meta">
+                                            <a href="#">
+                                                    <i class="fas fa-bookmark bookmark @if ($status == config('read.unread') || $status == config('read.read')) d-none @endif" data-status="{{ config('read.unread') }}" id="reading"></i>
+                                                    <i class="far fa-bookmark bookmark @if ($status == config('read.reading')) d-none @endif" data-status="{{ config('read.reading') }}" id="unreading"></i>
+                                            </a>
+                                        </li>
+                                        <li class="single-meta">
+                                            <a href="#">
+                                                    <i class="fas fa-check-circle bookmark @if ($status == config('read.unread') || $status == config('read.reading')) d-none @endif" data-status="{{ config('read.unread') }}" id="read"></i>
+                                                    <i class="far fa-check-circle bookmark @if ($status == config('read.read')) d-none @endif" data-status="{{ config('read.read') }}" id="unread"></i>
+                                            </a>
+                                        </li>
+                                        <li class="single-meta">
+                                            <a href="#">
+                                                    <i class="fas fa-heart bookmark @if ($favorite == config('default.not_fav')) d-none @endif" data-favorite="{{ config('read.unread') }}" id="fav"></i>
+                                                    <i class="far fa-heart bookmark @if ($favorite == config('default.fav')) d-none @endif" data-favorite="{{ config('default.fav') }}" id="unfav"></i>
+                                            </a>
+                                        </li>
+                                    </div>
                                 </ul>
                             </div>
                         </div>
@@ -341,5 +364,6 @@
         </div>
     </section>
     <script src="{{ asset('js/ckedit.js') }}"></script>
+    <script src="{{ asset('js/mark.js') }}"></script>
 @endsection
 

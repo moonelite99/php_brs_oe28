@@ -33,6 +33,42 @@ class BookController extends Controller
         return view('books', compact('books'));
     }
 
+    public function history()
+    {
+        try {
+            $user = User::with('books')->findOrFail(Auth::user()->id);
+            $books = $user->books()->wherePivot('status', config('read.read'))->paginate(config('default.grid_book'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('history.books', compact('books'));
+    }
+
+    public function reading()
+    {
+        try {
+            $user = User::with('books')->findOrFail(Auth::user()->id);
+            $books = $user->books()->wherePivot('status', config('read.reading'))->paginate(config('default.grid_book'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('books.reading', compact('books'));
+    }
+
+    public function favorite()
+    {
+        try {
+            $user = User::with('books')->findOrFail(Auth::user()->id);
+            $books = $user->books()->wherePivot('favorite', config('default.fav'))->paginate(config('default.grid_book'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('books.fav', compact('books'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -85,10 +121,16 @@ class BookController extends Controller
             $randomBook = Book::all()->random(config('book.suggest_num'));
             $categories = Category::all();
             $rated = config('default.rating');
+            $status = config('read.unread');
+            $favorite = config('default.not_fav');
             $reviewed = '';
             $reviews = Review::where('book_id', $id)->orderByDesc('updated_at')->get();
-            if ($book->users()->where('user_id', Auth::user()->id)->exists()) {
-                $rated = $book->users()->firstWhere('user_id', Auth::user()->id)->pivot->rating;
+            $exists = $book->users()->where('user_id', Auth::user()->id)->exists();
+            if ($exists) {
+                $pivot = $book->users()->firstWhere('user_id', Auth::user()->id)->pivot;
+                $rated = $pivot->rating;
+                $status = $pivot->status;
+                $favorite = $pivot->favorite;
                 if ($rated != config('default.rating')) {
                     $reviewed = Review::where('book_id', $id)->where('user_id', Auth::user()->id)->first();
                 }
@@ -106,7 +148,9 @@ class BookController extends Controller
             'rated',
             'reviews',
             'reviewed',
-            ]));
+            'status',
+            'favorite',
+        ]));
     }
 
     /**
