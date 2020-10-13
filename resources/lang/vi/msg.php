@@ -82,4 +82,5 @@ return [
     'manager' => 'Người quản lý',
     'sent_req' => 'Yêu cầu đã gửi',
     'sent_time' => 'Thời gian gửi',
+    'comment' => 'Bình luận',
 ];

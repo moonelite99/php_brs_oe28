@@ -16,4 +16,7 @@ return [
     'contact_col_admin' => 52,
     'req_unsolved' => 0,
     'req_solved' => 1,
+    'like_num' => 0,
+    'comment_row' => 4,
+    'comment_col' => 20,
 ];

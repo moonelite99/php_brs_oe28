@@ -212,7 +212,6 @@
     <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/smoothscroll.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
 </body>
