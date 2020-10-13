@@ -33,6 +33,50 @@ class BookController extends Controller
         return view('books', compact('books'));
     }
 
+    public function search(Request $request)
+    {
+        $books = Book::where('title', 'like', '%' . $request->data . '%')->get();
+        $output = '<li>';
+        foreach ($books as $book) {
+            $output .= '
+               <a href="' . route('show_book', $book->id)  . '">' . $book->title . '</a>
+               ';
+        }
+        if ($books->count() == 0) {
+            $output .= trans('msg.find_fail');
+        }
+        $output .= '</li>';
+
+        return $output;
+    }
+
+    public function getCategory()
+    {
+        $categories = Category::all();
+        $output = '<li>';
+        foreach ($categories as $category) {
+            $output .= '
+               <a href="' . route('categorized_book', $category->id)  . '">' . trans('msg.' . $category->name) . '</a>
+               ';
+        }
+        $output .= '</li>';
+
+        return $output;
+    }
+
+    public function categorize($id)
+    {
+        try {
+            $category = Category::findOrFail($id);
+            $books = $category->books()->paginate(config('default.grid_book'));
+            $name = $category->name;
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('fail_status', trans('msg.find_fail'));
+        }
+
+        return view('books.categorize', compact(['books', 'name']));
+    }
+
     public function history()
     {
         try {

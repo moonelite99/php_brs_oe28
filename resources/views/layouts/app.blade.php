@@ -22,6 +22,7 @@
     <link href="{{ asset('vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
     <script src="{{ asset('js/modernizr-3.6.0.min.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
 </head>
 
 <body>
@@ -67,37 +68,47 @@
                                 <ul id="site-menu" class="site-menu">
                                     <li>
                                         <div class="site-logo-desktop">
-                                            <a href="{{ route('home') }}" >
-                                                <img  src="{{ asset(config('img.light_logo')) }}"></a>
+                                            <a href="{{ route('home') }}">
+                                                <img src="{{ asset(config('img.light_logo')) }}"></a>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('books') }}">{{ trans('msg.book') }}</a>
-                                        <ul class="dropdown-menu-col-1 just-left">
-                                            <li>
-                                                <a href="{{ route('fav_book') }}">
-                                                    {{ trans('msg.fav_book') }}
-                                                </a>
-                                                <a href="{{ route('reading_book') }}">
-                                                    {{ trans('msg.reading_book') }}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">{{ trans('msg.history') }}</a>
-                                        <ul class="dropdown-menu-col-1 just-left">
-                                            <li>
-                                                <a href="{{ route('review_history') }}">
-                                                    {{ trans('msg.written_review') }}
-                                                </a>
-                                                <a href="{{ route('read_history') }}">
-                                                    {{ trans('msg.read_book') }}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
                                     @auth
+                                        <li>
+                                            <a href="{{ route('books') }}">{{ trans('msg.book') }}</a>
+                                            <ul class="dropdown-menu-col-1 just-left">
+                                                <li>
+                                                    <a href="{{ route('fav_book') }}">
+                                                        {{ trans('msg.fav_book') }}
+                                                    </a>
+                                                    <a href="{{ route('reading_book') }}">
+                                                        {{ trans('msg.reading_book') }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="category">{{ trans('msg.category') }}</a>
+                                            <ul class="dropdown-menu-col-1 just-left category" id="categorize">
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">{{ trans('msg.history') }}</a>
+                                            <ul class="dropdown-menu-col-1 just-left">
+                                                <li>
+                                                    <a href="{{ route('review_history') }}">
+                                                        {{ trans('msg.written_review') }}
+                                                    </a>
+                                                    <a href="{{ route('read_history') }}">
+                                                        {{ trans('msg.read_book') }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="search">
+                                            <input id="search-box" class="search-box" type="text">
+                                            <ul class="dropdown-menu-col-1 result" id="result">
+                                            </ul>
+                                        </li>
                                         @if (Auth::user()->role == config('role.user'))
                                             <li><a href="{{ route('contacts.create') }}">{{ trans('msg.contact') }}</a></li>
                                         @endif
@@ -109,11 +120,16 @@
                             <div class="nav-action-elements-layout1">
                                 <nav class="site-nav">
                                     <ul id="site-menu" class="site-menu">
-                                        <li>
-                                            <button class="login-btn">
-                                                <a href="#search"><i class="flaticon-search"></i></a>
-                                            </button>
-                                        </li>
+                                        @auth
+                                            <li>
+                                                <button class="login-btn" id="search-on">
+                                                    <a href="#"><i class="flaticon-search"></i></a>
+                                                </button>
+                                                <button class="login-btn d-none" id="search-off">
+                                                    <a href="#"><i class="flaticon-search"></i></a>
+                                                </button>
+                                            </li>
+                                        @endauth
                                         @guest
                                             <li>
                                                 <button type="button" class="login-btn">
@@ -130,9 +146,11 @@
                                                 </button>
                                             </li>
                                         @else
-                                            <li><a href="#">{{ Auth::user()->name }}</a>
+                                            <li><a href="#">
+                                                    <i class="fa fa-user" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu-col-1 just-left">
                                                     <li>
+                                                        <a href="#">{{ Auth::user()->name }}</a>
                                                         @if (Auth::user()->role == config('role.admin'))
                                                             <a href="{{ route('admin_index') }}">
                                                                 {{ trans('msg.admin') }}
@@ -220,20 +238,14 @@
             </div>
         </footer>
     </div>
-    <div id="search" class="search-wrap">
-        <button type="button" class="close">×</button>
-        <form class="search-form">
-            <input type="search" id="ooooo" value="" />
-            <button type="submit" class="search-btn"><i class="flaticon-search"></i></button>
-        </form>
-    </div>
-    <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
+    <script src="{{ asset('js/categorize.js') }}"></script>
 </body>
 
 </html>

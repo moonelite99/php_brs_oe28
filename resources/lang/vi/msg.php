@@ -89,4 +89,10 @@ return [
     'all_book' => 'Tất cả sách',
     'fav_book' => 'Sách yêu thích',
     'reading_book' => 'Sách đang đọc',
+    'cancel_mark_as_reading' => 'Hủy đánh dấu đang đọc',
+    'cancel_mark_as_read' => 'Hủy đánh dấu đã đọc',
+    'cancel_mark_as_fav' => 'Hủy đánh dấu yêu thích',
+    'mark_as_reading' => 'Đánh dấu đang đọc',
+    'mark_as_read' => 'Đánh dấu đã đọc',
+    'mark_as_fav' => 'Đánh dấu yêu thích',
 ];
