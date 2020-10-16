@@ -83,4 +83,10 @@ return [
     'sent_req' => 'Yêu cầu đã gửi',
     'sent_time' => 'Thời gian gửi',
     'comment' => 'Bình luận',
+    'history' => 'Lịch sử',
+    'written_review' => 'Cảm nhận đã viết',
+    'read_book' => 'Sách đã đọc',
+    'all_book' => 'Tất cả sách',
+    'fav_book' => 'Sách yêu thích',
+    'reading_book' => 'Sách đang đọc',
 ];

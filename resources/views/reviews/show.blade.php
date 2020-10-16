@@ -59,6 +59,9 @@
                             @php
                                 echo $review->content;
                             @endphp
+                                <a href="#" class="like @if (!Auth::user()->likes()->where('likeable_id', $review->id)->exists()) d-none @endif" id="unlike" data-likeable_type="App\Models\Review" data-likeable_id="{{ $review->id }}" data-user_id="{{ Auth::user()->id }}"><i class="fas fa-thumbs-up pull-left"></i></a>&nbsp;
+                                <a href="#" class="like @if (Auth::user()->likes()->where('likeable_id', $review->id)->exists()) d-none @endif" id="like" data-likeable_type="App\Models\Review" data-likeable_id="{{ $review->id }}" data-user_id="{{ Auth::user()->id }}"><i class="far fa-thumbs-up pull-left"></i></a>&nbsp;
+                            <span class="like_num">(<span id="like_num">{{ $review->like_num }}</span>)</span>
                         </div>
                         <div class="recipe-reviews">
                             <div class="section-heading heading-dark">
@@ -68,13 +71,12 @@
                                 <input type="hidden" id="count" value="{{ $comments->count() }}">
                                 <input type="hidden" id="review_id" value="{{ $review->id }}">
                                 <input type="hidden" id="msg_submit" value="{{ trans('msg.submit') }}">
+                                <input type="hidden" id="msg_delete" value="{{ trans('msg.delete') }}">
+                                <input type="hidden" id="msg_delete_confirm" value="{{ trans('msg.delete_confirm') }}">
                                 @foreach ($comments as $index => $comment)
                                     <li class="reviews-single-item" @if (Auth::user()->id == $comment->user_id) id="li{{ $index }}" @endif>
                                     <div class="media media-none--xs" @if (Auth::user()->id == $comment->user_id) id="comment{{ $index }}" @endif >
                                         @if (Auth::user()->id == $comment->user_id)
-                                            <input type="hidden" id="msg_delete" value="{{ trans('msg.delete') }}">
-                                            <input type="hidden" id="msg_delete_confirm"
-                                                value="{{ trans('msg.delete_confirm') }}">
                                             <button type="button" class="btn btn-secondary x-btn" data-toggle="modal"
                                                 data-target="#exampleModal{{ $index }}">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
@@ -108,6 +110,9 @@
                                             <h4 class="comment-title">{{ $comment->user()->first()->name }}</h4>
                                             <span class="post-date">{{ $comment->created_at }}</span>
                                             <p id="p{{ $index }}" class="break-word">{{ $comment->content }}</p>
+                                            <span class="pull-right">(<span id="cmt_like_num{{ $index }}">{{ $comment->like_num }}</span>)</span>
+                                            <a href="#" class="like @if (!Auth::user()->likes()->where('likeable_id', $comment->id)->exists()) d-none @endif" id="unlike_cmt{{ $index }}" data-likeable_type="App\Models\Comment" data-likeable_id="{{ $comment->id }}" data-user_id="{{ Auth::user()->id }}"><i class="fas fa-thumbs-up pull-right"></i></a>&nbsp;
+                                            <a href="#" class="like @if (Auth::user()->likes()->where('likeable_id', $comment->id)->exists()) d-none @endif" id="like_cmt{{ $index }}" data-likeable_type="App\Models\Comment" data-likeable_id="{{ $comment->id }}" data-user_id="{{ Auth::user()->id }}"><i class="far fa-thumbs-up pull-right"></i></a>&nbsp;
                                         </div>
                                     </div>
                                     <form class="leave-form-box d-none" @if (Auth::user()->id == $comment->user_id) id="comment_form{{ $index }}"@endif data-id={{ $comment->id }} data-index={{ $index }}>
@@ -237,4 +242,5 @@
         </div>
     </section>
     <script src="{{ asset('js/comment.js') }}"></script>
+    <script src="{{ asset('js/like.js') }}"></script>
 @endsection

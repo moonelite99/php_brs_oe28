@@ -152,4 +152,11 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('status', trans('msg.delete_successful'));
     }
+
+    public function history()
+    {
+        $reviews = Auth::user()->reviews()->paginate(config('default.pagination'));
+
+        return view('history.reviews', compact('reviews'));
+    }
 }
