@@ -26,7 +26,7 @@
                                     </p>
                                 </td>
                                 <td>
-                                    <a role="button" class="btn btn-primary" href="{{ route('show_book', $review->book->id) }}">
+                                    <a role="button" class="btn btn-primary" href="{{ route('reviews.show', $review->id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>

@@ -229,7 +229,7 @@
                             <ul>
                                 @foreach ($categories as $category)
                                     <li>
-                                        <a href="#">{{ trans('msg.' . $category->name) }}
+                                        <a href="{{ route('categorized_book', $category->id) }}">{{ trans('msg.' . $category->name) }}
                                             <span>{{ $category->books->count() }}</span>
                                         </a>
                                     </li>
