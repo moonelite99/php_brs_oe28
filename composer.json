@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "doctrine/dbal": "^2.11",
+        "fabpot/goutte": "^4.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -17,7 +18,8 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
-        "pusher/pusher-php-server": "^4.1"
+        "pusher/pusher-php-server": "^4.1",
+        "symfony/dom-crawler": "^5.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

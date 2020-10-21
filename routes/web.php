@@ -29,7 +29,7 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::post('/lang', 'LangController@postLang')->name('switch_lang');
 
-    Auth::routes();
+    Auth::routes(['reset' => false]);
 
     Route::get('/home', 'HomeController@index')->name('home');
 

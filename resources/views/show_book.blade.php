@@ -79,59 +79,133 @@
                         </div>
                         <ul class="nav nav-tabs margin-top-30" id="myTab" role="tablist">
                             <li class="nav-item col-6">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><h4 class="text-center">{{ trans('msg.description') }}</h4></a>
+                                <a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-selected="true"><h4 class="text-center">{{ trans('msg.description') }}</h4></a>
                             </li>
                             <li class="nav-item col-6">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><h4 class="text-center">{{ trans('msg.review') }}</h4></a>
+                                <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-selected="false"><h4 class="text-center">{{ trans('msg.review') }}</h4></a>
                             </li>
                         </ul>
                         <div class="tab-content pl-3 p-1" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade" id="description" role="tabpanel">
                                 <p class="item-description">{{ $book->description }}</p>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="recipe-reviews">
-                                    <div class="section-heading heading-dark">
-                                        <h2 class="item-heading">{{ trans('msg.book_reviews') }}</h2>
-                                    </div>
-                                    <div class="avarage-rating-wrap">
-                                        @if ($book->rating != config('default.rating'))
-                                        <div class="avarage-rating">{{ trans('msg.avg_rating') }}
-                                            <span class="rating-icon-wrap">
-                                                @for ($i = 0; $i < round($book->rating); $i++)
-                                                    <i class="fas fa-star"></i>
-                                                @endfor
-                                                @for ($i = 0; $i < config('default.max_rating') - round($book->rating); $i++)
-                                                    <i class="far fa-star"></i>
-                                                @endfor
-                                            </span>
-                                            <span class="rating-number">({{ $book->rating }})</span>
-                                        </div>
-                                        <div class="total-reviews">{{ trans('msg.total_reviews') }}<span class="review-number">({{ $reviews->count() }})</span></div>
-                                        @endif
-                                    </div>
-                                    <ul>
-                                        @foreach ($reviews as $review)
-                                            <li class="reviews-single-item">
-                                                <div class="media media-none--xs">
-                                                    <div class="media-body">
-                                                        <h4 class="comment-title">{{ $review->user()->first()->name }}</h4>
-                                                        <span class="post-date">{{ $review->updated_at }}</span>
-                                                        <div class="ellipsis">{{ ($review->title) }}</div>
-                                                        <ul class="item-rating">
-                                                            @for ($i = 0; $i < round($book->users()->firstWhere('user_id', $review->user_id)->pivot->rating); $i++)
-                                                                <i class="fas fa-star star"></i>
-                                                            @endfor
-                                                            @for ($i = 0; $i < config('default.max_rating') - round($book->users()->firstWhere('user_id', $review->user_id)->pivot->rating); $i++)
-                                                                <i class="far fa-star star"></i>
-                                                            @endfor
-                                                        </ul>
-                                                        <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a>
-                                                    </div>
+                            <div class="tab-pane fade show active" id="review" role="tabpanel">
+                                <ul class="nav nav-tabs margin-top-30" id="myTab" role="tablist">
+                                    <li class="nav-item col-4">
+                                        <a class="nav-link" id="cirilla-tab" data-toggle="tab" href="#cirilla" role="tab" aria-selected="true"><h4 class="text-center cirilla-color">Cirilla</h4></a>
+                                    </li>
+                                    <li class="nav-item col-4">
+                                        <a class="nav-link active" id="tiki-tab" data-toggle="tab" href="#tiki" role="tab" aria-selected="true"><h4 class="text-center tiki-color">Tiki</h4></a>
+                                    </li>
+                                    <li class="nav-item col-4">
+                                        <a class="nav-link" id="shopee-tab" data-toggle="tab" href="#shopee" role="tab" aria-selected="false"><h4 class="text-center shopee-color">Shopee</h4></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content pl-3 p-1" id="myTabContent2">
+                                    <div class="tab-pane fade" id="cirilla" role="tabpanel">
+                                        <div class="recipe-reviews">
+                                            <div class="section-heading heading-dark">
+                                                <h2 class="item-heading">{{ trans('msg.book_reviews') }}</h2>
+                                            </div>
+                                            <div class="avarage-rating-wrap">
+                                                @if ($book->rating != config('default.rating'))
+                                                <div class="avarage-rating">{{ trans('msg.avg_rating') }}
+                                                    <span class="rating-icon-wrap">
+                                                        @for ($i = 0; $i < round($book->rating); $i++)
+                                                            <i class="fas fa-star"></i>
+                                                        @endfor
+                                                        @for ($i = 0; $i < config('default.max_rating') - round($book->rating); $i++)
+                                                            <i class="far fa-star"></i>
+                                                        @endfor
+                                                    </span>
+                                                    <span class="rating-number">({{ $book->rating }})</span>
                                                 </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                                <div class="total-reviews">{{ trans('msg.total_reviews') }}<span class="review-number">({{ $reviews->count() }})</span></div>
+                                                @endif
+                                            </div>
+                                            <ul>
+                                                @foreach ($reviews as $review)
+                                                    <li class="reviews-single-item">
+                                                        <div class="media media-none--xs">
+                                                            <div class="media-body">
+                                                                <h4 class="comment-title">{{ $review->user()->first()->name }}</h4>
+                                                                <span class="post-date">{{ $review->updated_at }}</span>
+                                                                <div class="ellipsis">{{ ($review->title) }}</div>
+                                                                <ul class="item-rating">
+                                                                    @for ($i = 0; $i < round($book->users()->firstWhere('user_id', $review->user_id)->pivot->rating); $i++)
+                                                                        <i class="fas fa-star star"></i>
+                                                                    @endfor
+                                                                    @for ($i = 0; $i < config('default.max_rating') - round($book->users()->firstWhere('user_id', $review->user_id)->pivot->rating); $i++)
+                                                                        <i class="far fa-star star"></i>
+                                                                    @endfor
+                                                                </ul>
+                                                                <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade show active" id="tiki" role="tabpanel">
+                                        <div class="recipe-reviews">
+                                            <div class="section-heading heading-dark">
+                                                <h2 class="item-heading">{{ trans('msg.book_reviews') }}</h2>
+                                            </div>
+                                            <ul>
+                                                @foreach ($tikiReviews as $review)
+                                                    <li class="reviews-single-item">
+                                                        <div class="media media-none--xs">
+                                                            <div class="media-body">
+                                                                <h4 class="comment-title">{{ $review->username }}</h4>
+                                                                <span class="post-date">{{ $review->reviewed_at }}</span>
+                                                                <div class="ellipsis2 bold">{{ ($review->title) }}</div>
+                                                                <div>{{ $review->content }}</div>
+                                                                <ul class="item-rating">
+                                                                    @for ($i = 0; $i < $review->rating; $i++)
+                                                                        <i class="fas fa-star star"></i>
+                                                                    @endfor
+                                                                    @for ($i = 0; $i < config('default.max_rating') - $review->rating; $i++)
+                                                                        <i class="far fa-star star"></i>
+                                                                    @endfor
+                                                                </ul>
+                                                                {{-- <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a> --}}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="shopee" role="tabpanel">
+                                        <div class="recipe-reviews">
+                                            <div class="section-heading heading-dark">
+                                                <h2 class="item-heading">{{ trans('msg.book_reviews') }}</h2>
+                                            </div>
+                                            <ul>
+                                                @foreach ($shopeeReviews as $review)
+                                                    <li class="reviews-single-item">
+                                                        <div class="media media-none--xs">
+                                                            <div class="media-body">
+                                                                <h4 class="comment-title">{{ $review->username }}</h4>
+                                                                <span class="post-date">{{ $review->reviewed_at }}</span>
+                                                                <div>{{ $review->content }}</div>
+                                                                <ul class="item-rating">
+                                                                    @for ($i = 0; $i < $review->rating; $i++)
+                                                                        <i class="fas fa-star star"></i>
+                                                                    @endfor
+                                                                    @for ($i = 0; $i < config('default.max_rating') - $review->rating; $i++)
+                                                                        <i class="far fa-star star"></i>
+                                                                    @endfor
+                                                                </ul>
+                                                                {{-- <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a> --}}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

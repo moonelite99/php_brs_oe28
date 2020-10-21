@@ -147,6 +147,8 @@ class BookController extends Controller
             'reviewed',
             'status',
             'favorite',
+            'tikiReviews',
+            'shopeeReviews',
         ]));
     }
 
