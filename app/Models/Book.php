@@ -25,4 +25,9 @@ class Book extends Model
     {
         return $this->belongsToMany(User::class)->withPivot('rating', 'status', 'favorite');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

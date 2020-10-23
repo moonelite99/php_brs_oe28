@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="col-lg-8 offset-lg-2">
+    <div class="col-lg-10 offset-lg-1">
         <div class="card">
             <div class="card-header">
                 <strong>{{ trans('msg.add_book') }}</strong>

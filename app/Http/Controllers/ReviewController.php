@@ -20,12 +20,21 @@ class ReviewController extends Controller
         $total = 0;
         $i = 0;
         foreach ($book->users as $user) {
-            $total += $user->pivot->rating;
-            $i++;
+            $rating = $user->pivot->rating;
+            if ($rating != config('default.rating')) {
+                $total += $rating;
+                $i++;
+            }
         }
-        $book->update([
-            'rating' => round($total / $i, config('default.precision')),
-        ]);
+        if ($i != 0) {
+            $book->update([
+                'rating' => round($total / $i, config('default.precision')),
+            ]);
+        } else {
+            $book->update([
+                'rating' => config('default.rating'),
+            ]);
+        }
     }
     /**
      * Display a listing of the resource.
@@ -140,9 +149,15 @@ class ReviewController extends Controller
     public function destroy($id)
     {
         try {
-            $review = Review::findOrFail($id);
+            $review = Review::with(['comments', 'comments.likes'])->findOrFail($id);
             $user = User::findOrFail($review->user_id);
             $book = Book::findOrFail($review->book_id);
+            $comments = $review->comments();
+            foreach ($comments->get() as $comment) {
+                $comment->likes()->delete();
+            }
+            $comments->delete();
+            $review->likes()->delete();
             $user->books()->syncWithoutDetaching([$review->book_id => ['rating' => config('default.rating')]]);
             $this->rating($book);
             $review->delete();
