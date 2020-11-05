@@ -140,7 +140,7 @@
                                             </li>
                                             <li>
                                                 <button type="button" class="login-btn">
-                                                    <a class="login-btn"
+                                                    <a class="login-btn" id="register-btn"
                                                         href="{{ route('register') }}">{{ trans('msg.register') }}
                                                     </a>
                                                 </button>
@@ -167,7 +167,7 @@
                                                 @csrf
                                             </form>
                                         @endguest
-                                        <li><a href="#">{{ trans('msg.language') }}</a>
+                                        <li><a id="language-link" href="#">{{ trans('msg.language') }}</a>
                                             <ul class="dropdown-menu-col-1 just-left">
                                                 <li>
                                                     <a id="en" href="#">{{ trans('msg.english') }}
