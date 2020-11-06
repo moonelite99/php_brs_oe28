@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use \App\Repositories\Contact\ContactRepositoryInterface;
+use \App\Repositories\Contact\ContactRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(
+            ContactRepositoryInterface::class,
+            ContactRepository::class,
+        );
     }
 
     /**
