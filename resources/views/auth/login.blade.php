@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-header">{{ trans('msg.login') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" id="login-form" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group-b row">
                                     <label for="username"
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="form-group-b row mb-0">
                                     <div class="col-md-8 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button id='login-btn' type="submit" class="btn btn-primary">
                                             {{ trans('msg.login') }}
                                         </button>
                                     </div>
