@@ -3,73 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ReviewFormRequest;
-use App\Models\Book;
-use App\Models\Category;
-use App\Models\Comment;
-use App\Models\Review;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Repositories\Book\BookRepositoryInterface;
+use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Review\ReviewRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\This;
 
 class ReviewController extends Controller
 {
-    public function rating(Book $book)
-    {
-        $total = 0;
-        $i = 0;
-        foreach ($book->users as $user) {
-            $rating = $user->pivot->rating;
-            if ($rating != config('default.rating')) {
-                $total += $rating;
-                $i++;
-            }
-        }
-        if ($i != 0) {
-            $book->update([
-                'rating' => round($total / $i, config('default.precision')),
-            ]);
-        } else {
-            $book->update([
-                'rating' => config('default.rating'),
-            ]);
-        }
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    protected $reviewRepo;
+    protected $bookRepo;
+    protected $commentRepo;
+
+    public function __construct(
+        ReviewRepositoryInterface $reviewRepositoryInterface,
+        BookRepositoryInterface $bookRepositoryInterface,
+        CommentRepositoryInterface $commentRepositoryInterface
+    ) {
+        $this->reviewRepo = $reviewRepositoryInterface;
+        $this->bookRepo = $bookRepositoryInterface;
+        $this->commentRepo = $commentRepositoryInterface;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ReviewFormRequest $request)
     {
         try {
-            $user = User::findOrFail($request->user_id);
-            $book = Book::findOrFail($request->book_id);
-            Review::create($request->all());
-            $user->books()->syncWithoutDetaching([$request->book_id => ['rating' => $request->rating]]);
-            $this->rating($book);
+            $this->reviewRepo->createReview(
+                $request->user_id,
+                $request->book_id,
+                $request->rating,
+            );
+            $this->reviewRepo->create($request->all());
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
         }
@@ -77,21 +40,15 @@ class ReviewController extends Controller
         return redirect()->back()->with('status', trans('msg.success'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try {
-            $review = Review::findOrFail($id);
+            $review = $this->reviewRepo->find($id);;
             $book = $review->book;
-            $lastestBook = Book::orderByDesc('publish_date')->limit(config('default.limit_book'))->get();
-            $randomBook = Book::all()->random(config('book.suggest_num'));
-            $categories = Category::all();
-            $comments = Comment::with('user')->where('review_id', $id)->orderBy('created_at')->get();
+            $lastestBook = $this->bookRepo->getLastestBook();
+            $randomBook = $this->bookRepo->getRandomBook();
+            $categories = $this->bookRepo->getAllCategory();
+            $comments = $this->commentRepo->getCommentOfReview($id);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
@@ -106,33 +63,15 @@ class ReviewController extends Controller
         ]));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ReviewFormRequest $request, $id)
     {
         try {
-            $review = Review::findOrFail($id);
-            $user = User::findOrFail($request->user_id);
-            $book = Book::findOrFail($request->book_id);
-            $review->update($request->all());
-            $user->books()->syncWithoutDetaching([$request->book_id => ['rating' => $request->rating]]);
-            $this->rating($book);
+            $this->reviewRepo->updateReview(
+                $request->user_id,
+                $request->book_id,
+                $request->rating,
+            );
+            $this->reviewRepo->update($request->all(), $id);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
         }
@@ -140,27 +79,10 @@ class ReviewController extends Controller
         return redirect()->back()->with('status', trans('msg.success'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try {
-            $review = Review::with(['comments', 'comments.likes'])->findOrFail($id);
-            $user = User::findOrFail($review->user_id);
-            $book = Book::findOrFail($review->book_id);
-            $comments = $review->comments();
-            foreach ($comments->get() as $comment) {
-                $comment->likes()->delete();
-            }
-            $comments->delete();
-            $review->likes()->delete();
-            $user->books()->syncWithoutDetaching([$review->book_id => ['rating' => config('default.rating')]]);
-            $this->rating($book);
-            $review->delete();
+            $this->reviewRepo->deleteReview($id);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books')->with('fail_status', trans('msg.find_fail'));
         }
@@ -170,7 +92,7 @@ class ReviewController extends Controller
 
     public function history()
     {
-        $reviews = Auth::user()->reviews()->paginate(config('default.pagination'));
+        $reviews = $this->reviewRepo->getHistory();;
 
         return view('history.reviews', compact('reviews'));
     }

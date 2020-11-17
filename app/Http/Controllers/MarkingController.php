@@ -2,55 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Comment;
-use App\Models\Like;
 use App\Models\Review;
-use App\Models\User;
+use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Like\LikeRepositoryInterface;
+use App\Repositories\Review\ReviewRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class MarkingController extends Controller
 {
+    protected $userRepo;
+    protected $reviewRepo;
+    protected $commentRepo;
+    protected $likeRepo;
+
+    public function __construct(
+        UserRepositoryInterface $userRepositoryInterface,
+        ReviewRepositoryInterface $reviewRepositoryInterface,
+        CommentRepositoryInterface $commentRepositoryInterface,
+        LikeRepositoryInterface $likeRepositoryInterface
+    ) {
+        $this->userRepo = $userRepositoryInterface;
+        $this->reviewRepo = $reviewRepositoryInterface;
+        $this->commentRepo = $commentRepositoryInterface;
+        $this->likeRepo = $likeRepositoryInterface;
+    }
+
     public function updateReview($id)
     {
         try {
-            $review = Review::withCount('likes')->findOrFail($id);
-            $review->update([
-                'like_num' => $review->likes_count,
-            ]);
+            $likeNumber = $this->reviewRepo->updateLikeNum($id);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
 
-        return $review->likes_count;
+        return $likeNumber;
     }
 
     public function updateComment($id)
     {
         try {
-            $comment = Comment::withCount('likes')->findOrFail($id);
-            $comment->update([
-                'like_num' => $comment->likes_count,
-            ]);
+            $likeNumber = $this->commentRepo->updateLikeNum($id);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
 
-        return $comment->likes_count;
+        return $likeNumber;
     }
 
     public function like(Request $request)
     {
         if ($request->like) {
-            Like::updateOrCreate([
-                'user_id' => $request->user_id,
-                'likeable_id' => $request->likeable_id,
-                'likeable_type' => $request->likeable_type,
-            ]);
+            $this->likeRepo->createLike(
+                $request->user_id,
+                $request->likeable_id,
+                $request->likeable_type,
+            );
         } else {
-            $like = Like::where('user_id', $request->user_id)->where('likeable_id', $request->likeable_id)->where('likeable_type', $request->likeable_type);
-            $like->delete();
+            $this->likeRepo->deleteLike(
+                $request->user_id,
+                $request->likeable_id,
+                $request->likeable_type,
+            );
         }
         if ($request->likeable_type == Review::class) {
             return $this->updateReview($request->likeable_id);
@@ -62,7 +76,7 @@ class MarkingController extends Controller
     public function mark(Request $request)
     {
         try {
-            $user = User::findOrFail($request->user_id);
+            $user = $this->userRepo->find($request->user_id);;
             if ($request->has('status')) {
                 $user->books()->syncWithoutDetaching([$request->book_id => ['status' => $request->status]]);
             } else {

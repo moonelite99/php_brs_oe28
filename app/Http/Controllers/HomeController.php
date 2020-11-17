@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
+use App\Repositories\Book\BookRepositoryInterface;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $bookRepo;
+
+    public function __construct(BookRepositoryInterface $bookRepositoryInterface)
     {
         $this->middleware('auth');
+        $this->bookRepo = $bookRepositoryInterface;
     }
 
     /**
@@ -24,7 +22,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::all()->random(config('book.random_num'));
+        $books = $this->bookRepo->getHomePageBook();;
 
         return view('home', compact('books'));
     }
