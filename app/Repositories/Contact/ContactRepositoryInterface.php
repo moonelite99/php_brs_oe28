@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Contact;
 
-use App\Repositories\BaseRepository;
+use App\Repositories\RepositoryInterface;
 
-interface ContactRepositoryInterface
+interface ContactRepositoryInterface extends RepositoryInterface
 {
     public function findByStatus($status);
 

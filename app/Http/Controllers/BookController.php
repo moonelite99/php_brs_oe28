@@ -4,72 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookFormRequest;
 use App\Http\Requests\UpdateBookFormRequest;
-use App\Models\Book;
-use App\Models\Category;
-use App\Models\Review;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Book\BookRepositoryInterface;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $bookRepo;
+
+    public function __construct(BookRepositoryInterface $bookRepositoryInterface)
+    {
+        $this->bookRepo = $bookRepositoryInterface;
+    }
+
     public function index()
     {
-        $books = Book::orderByDesc('created_at')->paginate(config('default.pagination'));
+        $books = $this->bookRepo->paginateBookAsList();
 
         return view('books.index', compact('books'));
     }
 
     public function show_all()
     {
-        $books = Book::orderByDesc('created_at')->paginate(config('default.grid_book'));
-
+        $books = $this->bookRepo->paginateBookAsGrid();
         return view('books', compact('books'));
     }
 
     public function search(Request $request)
     {
-        $books = Book::where('title', 'like', '%' . $request->data . '%')->get();
-        $output = '<li>';
-        foreach ($books as $book) {
-            $output .= '
-               <a href="' . route('show_book', $book->id)  . '">' . $book->title . '</a>
-               ';
-        }
-        if ($books->count() == 0) {
-            $output .= trans('msg.find_fail');
-        }
-        $output .= '</li>';
-
-        return $output;
+        return $this->bookRepo->searchBook($request->data);
     }
 
     public function getCategory()
     {
-        $categories = Category::all();
-        $output = '<li>';
-        foreach ($categories as $category) {
-            $output .= '
-               <a href="' . route('categorized_book', $category->id)  . '">' . trans('msg.' . $category->name) . '</a>
-               ';
-        }
-        $output .= '</li>';
-
-        return $output;
+        return $this->bookRepo->getCategory();
     }
 
     public function categorize($id)
     {
         try {
-            $category = Category::findOrFail($id);
-            $books = $category->books()->paginate(config('default.grid_book'));
-            $name = $category->name;
+            $category = $this->bookRepo->findCategory($id);
+            $books = $this->bookRepo->getCategorizeBook($category);
+            $name = $this->bookRepo->getCategorizeName($category);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
@@ -80,8 +57,7 @@ class BookController extends Controller
     public function history()
     {
         try {
-            $user = User::with('books')->findOrFail(Auth::user()->id);
-            $books = $user->books()->wherePivot('status', config('read.read'))->paginate(config('default.grid_book'));
+            $books = $this->bookRepo->getReadBook(Auth::user()->id);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
@@ -92,8 +68,7 @@ class BookController extends Controller
     public function reading()
     {
         try {
-            $user = User::with('books')->findOrFail(Auth::user()->id);
-            $books = $user->books()->wherePivot('status', config('read.reading'))->paginate(config('default.grid_book'));
+            $books = $this->bookRepo->getReadingBook(Auth::user()->id);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
@@ -104,8 +79,7 @@ class BookController extends Controller
     public function favorite()
     {
         try {
-            $user = User::with('books')->findOrFail(Auth::user()->id);
-            $books = $user->books()->wherePivot('favorite', config('default.fav'))->paginate(config('default.grid_book'));
+            $books = $this->bookRepo->getFavoriteBook(Auth::user()->id);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('fail_status', trans('msg.find_fail'));
         }
@@ -113,70 +87,49 @@ class BookController extends Controller
         return view('books.fav', compact('books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $categories = Category::all();
+        $categories = $this->bookRepo->getAllCategory();
 
         return view('books.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(BookFormRequest $request)
     {
-        $image = $request->image;
-        $fileName = uniqid() . $image->getClientOriginalName();
-        $image->move(config('img.path'), $fileName);
-        $book = Book::create([
-            'title' => $request->title,
-            'author' => $request->author,
-            'description' => $request->description,
-            'pages_number' => $request->pages_number,
-            'publish_date' => $request->publish_date,
-            'img_path' => config('img.path') . $fileName,
-            'rating' => config('default.rating'),
-        ]);
-        $book->categories()->sync($request->categories);
+        $this->bookRepo->storeBook(
+            $request->title,
+            $request->author,
+            $request->description,
+            $request->pages_number,
+            $request->publish_date,
+            $request->image,
+            $request->categories,
+        );
 
         return redirect()->route('books.create')->with('status', trans('msg.create_success'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try {
-            $book = Book::findOrFail($id);
+            $book = $this->bookRepo->find($id);
             $selectedCategories = $book->categories;
-            $lastestBook = Book::orderByDesc('publish_date')->limit(config('default.limit_book'))->get();
-            $randomBook = Book::all()->random(config('book.suggest_num'));
-            $categories = Category::all();
+            $lastestBook = $this->bookRepo->getLastestBook();
+            $randomBook = $this->bookRepo->getRandomBook();
+            $categories = $this->bookRepo->getAllCategory();
             $rated = config('default.rating');
             $status = config('read.unread');
             $favorite = config('default.not_fav');
             $reviewed = '';
-            $reviews = Review::where('book_id', $id)->orderByDesc('updated_at')->get();
-            $exists = $book->users()->where('user_id', Auth::user()->id)->exists();
+            $reviews = $this->bookRepo->getReview($id);
+            $exists = $this->bookRepo->checkExists($book, Auth::user()->id);
             if ($exists) {
-                $pivot = $book->users()->firstWhere('user_id', Auth::user()->id)->pivot;
+                $pivot = $this->bookRepo->getPivot($book, Auth::user()->id);
                 $rated = $pivot->rating;
                 $status = $pivot->status;
                 $favorite = $pivot->favorite;
                 if ($rated != config('default.rating')) {
-                    $reviewed = Review::where('book_id', $id)->where('user_id', Auth::user()->id)->first();
+                    $reviewed = $this->bookRepo->getReviewed($id, Auth::user()->id);
                 }
             }
         } catch (ModelNotFoundException $e) {
@@ -197,18 +150,12 @@ class BookController extends Controller
         ]));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         try {
-            $book = Book::findOrFail($id);
-            $categories = Category::all();
-            $selectedCategories = $book->categories->pluck('id')->toArray();
+            $book = $this->bookRepo->find($id);
+            $categories = $this->bookRepo->getAllCategory();
+            $selectedCategories = $this->bookRepo->getSelectedCategories($book);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));
         }
@@ -216,17 +163,10 @@ class BookController extends Controller
         return view('books.edit', compact(['book', 'categories', 'selectedCategories']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateBookFormRequest $request, $id)
     {
         try {
-            $book = Book::findOrFail($id);
+            $book = $this->bookRepo->find($id);
             if ($request->has('image')) {
                 $image = $request->image;
                 $fileName = uniqid() . $image->getClientOriginalName();
@@ -235,16 +175,16 @@ class BookController extends Controller
             } else {
                 $img_path = $book->img_path;
             }
-            $book->update([
-                'title' => $request->title,
-                'author' => $request->author,
-                'description' => $request->description,
-                'pages_number' => $request->pages_number,
-                'publish_date' => $request->publish_date,
-                'img_path' => $img_path,
-                'rating' => $book->rating,
-            ]);
-            $book->categories()->sync($request->categories);
+            $this->bookRepo->updateBook(
+                $book,
+                $request->title,
+                $request->author,
+                $request->description,
+                $request->pages_number,
+                $request->publish_date,
+                $img_path,
+                $request->categories,
+            );
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));
         }
@@ -252,27 +192,10 @@ class BookController extends Controller
         return redirect()->route('books.edit', $book->id)->with('status', trans('msg.update_successful'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try {
-            $book = Book::with(['reviews', 'reviews.comments', 'reviews.comments.likes'])->findOrFail($id);
-            $reviews = $book->reviews;
-            foreach ($reviews as $review) {
-                $comments = $review->comments();
-                foreach ($comments->get() as $comment) {
-                    $comment->likes()->delete();
-                }
-                $comments->delete();
-                $review->likes()->delete();
-                $review->delete();
-            }
-            $book->delete();
+            $this->bookRepo->deleteBook($id);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('books.index')->with('fail_status', trans('msg.find_fail'));
         }
