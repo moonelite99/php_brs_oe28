@@ -13,4 +13,6 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function updateUser($name, $email, $password, $id);
 
     public function deleteUser($id);
+
+    public function getAdmin();
 }

@@ -20,6 +20,8 @@
     <link href="{{ asset('vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('css/admin/theme.css') }}" rel="stylesheet" media="all">
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/admin/pusher.js') }}"></script>
 </head>
 
 <body>
@@ -117,6 +119,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="suffix" value="{{ trans('msg.write_new_review') }}">
+                            <div class="noti-wrap pull-right">
+                                <div class="noti__item js-item-menu">
+                                    <i class="zmdi zmdi-notifications" id="bell"></i>
+                                    <div class="notifi-dropdown js-dropdown noti-drop" id="noti-dropdown">
+                                        @foreach (Auth::user()->notifications()->take(config('default.max_noti'))->get() as $notification)
+                                            <div class="notifi__item">
+                                                <div class="bg-c3 img-cir img-40">
+                                                    <i class="zmdi zmdi-file-text"></i>
+                                                </div>
+                                                <div class="content">
+                                                    <a href="{{ $notification->data['link'] }}">
+                                                        <p>{{ $notification->data['name'] . trans('msg.write_new_review')}} </p>
+                                                        <span class="date">{{ $notification->data['time'] }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,6 +163,7 @@
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
     <script src="{{ asset('js/admin/main.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
+    <script src="{{ asset('js/admin/admin.js') }}"></script>
 </body>
 
 </html>

@@ -50,4 +50,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user = User::findOrFail($id);
         $user->delete();
     }
+
+    public function getAdmin()
+    {
+        User::where('role', config('role.admin'))->get();
+    }
 }
