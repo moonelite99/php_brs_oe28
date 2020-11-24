@@ -83,4 +83,9 @@ class ReviewRepository extends BaseRepository implements ReviewRepositoryInterfa
 
         return $review->likes_count;
     }
+
+    public function getLastestReview()
+    {
+        return Review::where('user_id', Auth::user()->id)->orderByDesc('created_at')->first();
+    }
 }

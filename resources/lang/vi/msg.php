@@ -95,4 +95,5 @@ return [
     'mark_as_reading' => 'Đánh dấu đang đọc',
     'mark_as_read' => 'Đánh dấu đã đọc',
     'mark_as_fav' => 'Đánh dấu yêu thích',
+    'write_new_review' => ' đã viết cảm nhận mới',
 ];

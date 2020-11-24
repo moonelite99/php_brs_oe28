@@ -95,4 +95,5 @@ return [
     'mark_as_reading' => 'Mark as reading',
     'mark_as_read' => 'Mark as read',
     'mark_as_fav' => 'Mark as favorite',
+    'write_new_review' => ' has written new review',
 ];

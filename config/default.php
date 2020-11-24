@@ -19,4 +19,5 @@ return [
     'like_num' => 0,
     'comment_row' => 4,
     'comment_col' => 20,
+    'max_noti' => 4,
 ];
