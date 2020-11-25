@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Review;
 use App\Models\User;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 
 class BookRepository extends BaseRepository implements BookRepositoryInterface
 {
@@ -180,5 +181,10 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
     public function getHomePageBook()
     {
         return Book::all()->random(config('book.random_num'));
+    }
+
+    public function getLastWeekBook()
+    {
+        return Book::where('created_at', '>=', Carbon::now()->subDays(7))->get();
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewRepository extends BaseRepository implements ReviewRepositoryInterface
@@ -87,5 +88,10 @@ class ReviewRepository extends BaseRepository implements ReviewRepositoryInterfa
     public function getLastestReview()
     {
         return Review::where('user_id', Auth::user()->id)->orderByDesc('created_at')->first();
+    }
+
+    public function getLastWeekReview()
+    {
+        return Review::where('created_at', '>=', Carbon::now()->subDays(7))->get();
     }
 }

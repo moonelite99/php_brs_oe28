@@ -49,4 +49,6 @@ interface BookRepositoryInterface extends RepositoryInterface
     public function deleteBook($id);
 
     public function getHomePageBook();
+
+    public function getLastWeekBook();
 }

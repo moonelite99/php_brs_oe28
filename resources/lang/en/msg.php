@@ -96,4 +96,7 @@ return [
     'mark_as_read' => 'Mark as read',
     'mark_as_fav' => 'Mark as favorite',
     'write_new_review' => ' has written new review',
+    'weekly_report' => 'Weekly Report',
+    'no_new_review' => 'No new review this week',
+    'no_new_book' => 'No new book this week',
 ];
