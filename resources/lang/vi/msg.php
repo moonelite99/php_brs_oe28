@@ -96,4 +96,7 @@ return [
     'mark_as_read' => 'Đánh dấu đã đọc',
     'mark_as_fav' => 'Đánh dấu yêu thích',
     'write_new_review' => ' đã viết cảm nhận mới',
+    'weekly_report' => 'Báo cáo hàng tuần',
+    'no_new_review' => 'Không có cảm nhận mới tuần này',
+    'no_new_book' => 'Không có sách mới tuần này',
 ];

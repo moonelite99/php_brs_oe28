@@ -19,4 +19,6 @@ interface ReviewRepositoryInterface extends RepositoryInterface
     public function updateLikeNum($id);
 
     public function getLastestReview();
+
+    public function getLastWeekReview();
 }

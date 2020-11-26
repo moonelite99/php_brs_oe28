@@ -53,6 +53,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getAdmin()
     {
-        User::where('role', config('role.admin'))->get();
+        return User::where('role', config('role.admin'))->get();
     }
 }
