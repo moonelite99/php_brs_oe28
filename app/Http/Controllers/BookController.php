@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Book\BookRepositoryInterface;
+use App\ShopReview;
 
 class BookController extends Controller
 {
@@ -117,6 +118,8 @@ class BookController extends Controller
             $lastestBook = $this->bookRepo->getLastestBook();
             $randomBook = $this->bookRepo->getRandomBook();
             $categories = $this->bookRepo->getAllCategory();
+            $tikiReviews = ShopReview::where('tiki_book_id', $book->tiki_book_id)->where('type', 'tiki')->get();
+            $shopeeReviews = ShopReview::where('tiki_book_id', $book->tiki_book_id)->where('type', 'shopee')->get();
             $rated = config('default.rating');
             $status = config('read.unread');
             $favorite = config('default.not_fav');
