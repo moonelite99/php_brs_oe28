@@ -81,6 +81,12 @@
                                 {{ trans('msg.requests') }}
                             </a>
                         </li>
+                        <li class="active has-sub">
+                            <a href="{{ route('update') }}">
+                                <i class="fas fa-sync-alt"></i>&nbsp;
+                                {{ trans('msg.update') }}
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

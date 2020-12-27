@@ -30,4 +30,14 @@ class Book extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function tikiBook()
+    {
+        return $this->hasOne(Tikibook::class, 'book_id', 'tiki_book_id');
+    }
+
+    public function shopeeBook()
+    {
+        return $this->hasOne(Shopeebook::class, 'tiki_book_id', 'tiki_book_id');
+    }
 }

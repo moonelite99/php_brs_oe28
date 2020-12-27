@@ -36,7 +36,7 @@ class UserController extends Controller
             $request->password,
         );
 
-        return redirect()->route('users.create')->with('status', trans('msg.create_success'));
+        return redirect()->route('users.index')->with('status', trans('msg.create_success'));
     }
 
     public function edit($id)

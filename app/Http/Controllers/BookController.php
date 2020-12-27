@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Book\BookRepositoryInterface;
-use App\ShopReview;
+use App\Models\ShopReview;
 
 class BookController extends Controller
 {
@@ -107,7 +107,7 @@ class BookController extends Controller
             $request->categories,
         );
 
-        return redirect()->route('books.create')->with('status', trans('msg.create_success'));
+        return redirect()->route('books.index')->with('status', trans('msg.create_success'));
     }
 
     public function show($id)
@@ -118,8 +118,8 @@ class BookController extends Controller
             $lastestBook = $this->bookRepo->getLastestBook();
             $randomBook = $this->bookRepo->getRandomBook();
             $categories = $this->bookRepo->getAllCategory();
-            $tikiReviews = ShopReview::where('tiki_book_id', $book->tiki_book_id)->where('type', 'tiki')->get();
-            $shopeeReviews = ShopReview::where('tiki_book_id', $book->tiki_book_id)->where('type', 'shopee')->get();
+            $tikiReviews = ShopReview::where('tiki_book_id', $book->tiki_book_id)->where('type', 'tiki')->orderByDesc('updated_at')->take(10)->get();
+            $shopeeReviews = ShopReview::where('tiki_book_id', $book->tiki_book_id)->where('type', 'shopee')->orderByDesc('updated_at')->take(10)->get();
             $rated = config('default.rating');
             $status = config('read.unread');
             $favorite = config('default.not_fav');

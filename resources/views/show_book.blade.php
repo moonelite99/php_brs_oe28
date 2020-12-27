@@ -169,7 +169,13 @@
                                                                         <i class="far fa-star star"></i>
                                                                     @endfor
                                                                 </ul>
-                                                                {{-- <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a> --}}
+                                                                @if (Auth::user()->role == config('role.admin'))
+                                                                    <form id="tiki{{ $review->id }}" method="post" action="{{ route('shopreview.destroy', $review->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <a href="#" onclick="event.preventDefault(); $('#tiki{{ $review->id }}').submit()"  class="item-btn"><i class="fas fa-times"></i></a>
+                                                                    </form>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </li>
@@ -198,7 +204,13 @@
                                                                         <i class="far fa-star star"></i>
                                                                     @endfor
                                                                 </ul>
-                                                                {{-- <a href="{{ route('reviews.show', $review->id) }}" class="item-btn">{{ trans('msg.read_more') }}<i class="fas fa-long-arrow-alt-right"></i></a> --}}
+                                                                @if (Auth::user()->role == config('role.admin'))
+                                                                    <form id="shopee{{ $review->id }}" method="post" action="{{ route('shopreview.destroy', $review->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <a href="#" onclick="event.preventDefault(); $('#shopee{{ $review->id }}').submit()"  class="item-btn"><i class="fas fa-times"></i></a>
+                                                                    </form>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </li>

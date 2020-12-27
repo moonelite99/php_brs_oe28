@@ -101,4 +101,7 @@ return [
     'no_new_book' => 'Không có sách mới tuần này',
     'new_review_per_month' => 'Cảm nhận mới mỗi tháng',
     'new_review' => 'Cảm nhận mới',
+    'update' => 'Cập nhật',
+    'update_tiki_review' => 'Cập nhật cảm nhận từ Tiki',
+    'update_shopee_review' => 'Cập nhật cảm nhận từ Shopee',
 ];

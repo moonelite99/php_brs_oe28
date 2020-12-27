@@ -25,6 +25,12 @@ Route::group(['middleware' => 'localization'], function () {
         Route::resource('users', 'UserController');
 
         Route::get('/requests/{status}', 'ContactController@solve')->name('requests');
+
+        Route::get('/update', 'ShopReviewController@index')->name('update');
+
+        Route::get('/update/tiki', 'ShopReviewController@updateTikiReview')->name('update_tiki');
+
+        Route::get('/update/shopee', 'ShopReviewController@updateShopeeReview')->name('update_shopee');
     });
 
     Route::post('/lang', 'LangController@postLang')->name('switch_lang');
@@ -60,4 +66,6 @@ Route::group(['middleware' => 'localization'], function () {
     Route::get('/category', 'BookController@getCategory');
 
     Route::get('/books/category/{category}', 'BookController@categorize')->name('categorized_book');
+
+    Route::resource('shopreview', 'ShopReviewController');
 });

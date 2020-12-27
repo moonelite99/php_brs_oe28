@@ -65,6 +65,7 @@ return [
     'content' => 'Content',
     'rating' => 'Rating',
     'success' => 'Success',
+    'notification' => 'Notification',
     'review_about' => 'Review about ',
     'avg_rating' => 'Avarage rating:',
     'total_reviews' => 'Total reviews:',
@@ -101,4 +102,7 @@ return [
     'no_new_book' => 'No new book this week',
     'new_review_per_month' => 'New review per month',
     'new_review' => 'New review',
+    'update' => 'Update',
+    'update_tiki_review' => 'Update Tiki review',
+    'update_shopee_review' => 'Update Shopee review',
 ];

@@ -2,8 +2,8 @@
 
 namespace App\Scraper;
 
-use App\Shopeebook;
-use App\Tikibook;
+use App\Models\Shopeebook;
+use App\Models\Tikibook;
 use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 

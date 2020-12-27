@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,5 +14,6 @@ class ShopReview extends Model
         'rating',
         'reviewed_at',
         'type',
+        'updated_at',
     ];
 }
