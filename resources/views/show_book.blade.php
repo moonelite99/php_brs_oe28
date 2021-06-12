@@ -160,7 +160,7 @@
                                                                 <h4 class="comment-title">{{ $review->username }}</h4>
                                                                 <span class="post-date">{{ $review->reviewed_at }}</span>
                                                                 <div class="ellipsis2 bold">{{ ($review->title) }}</div>
-                                                                <div>{{ $review->content }}</div>
+                                                                <div class="tiki-comment">{{ $review->content }}</div>
                                                                 <ul class="item-rating">
                                                                     @for ($i = 0; $i < $review->rating; $i++)
                                                                         <i class="fas fa-star star"></i>
@@ -195,7 +195,7 @@
                                                             <div class="media-body">
                                                                 <h4 class="comment-title">{{ $review->username }}</h4>
                                                                 <span class="post-date">{{ $review->reviewed_at }}</span>
-                                                                <div>{{ $review->content }}</div>
+                                                                <div class="tiki-comment">{{ $review->content }}</div>
                                                                 <ul class="item-rating">
                                                                     @for ($i = 0; $i < $review->rating; $i++)
                                                                         <i class="fas fa-star star"></i>
