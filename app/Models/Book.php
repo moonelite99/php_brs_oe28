@@ -14,6 +14,7 @@ class Book extends Model
         'pages_number',
         'rating',
         'img_path',
+        'price',
     ];
 
     public function categories()

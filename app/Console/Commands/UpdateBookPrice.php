@@ -2,24 +2,24 @@
 
 namespace App\Console\Commands;
 
-use App\Scraper\ReviewScraper;
+use App\Scraper\BookScraper;
 use Illuminate\Console\Command;
 
-class UpdateShopeeReview extends Command
+class UpdateBookPrice extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'update:shopeereview';
+    protected $signature = 'command:updateprice';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update review from shopee';
+    protected $description = 'Update Book Price';
 
     /**
      * Create a new command instance.
@@ -38,7 +38,7 @@ class UpdateShopeeReview extends Command
      */
     public function handle()
     {
-        $bot = new ReviewScraper();
-        $bot->updateShopeeReview();
+        $bot = new BookScraper();
+        $bot->updateBookPrice();
     }
 }

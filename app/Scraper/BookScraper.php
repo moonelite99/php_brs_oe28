@@ -2,8 +2,10 @@
 
 namespace App\Scraper;
 
+use App\Models\Book;
 use App\Models\Shopeebook;
 use App\Models\Tikibook;
+use Exception;
 use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -78,6 +80,26 @@ class BookScraper
                 'shop_id' => $shopId,
                 'tiki_book_id' => $book->book_id,
             ]);
+        }
+    }
+
+    public function updateBookPrice()
+    {
+        $books = Book::all();
+        foreach ($books as $book) {
+            $url = 'https://tiki.vn/api/v2/products/' . $book->tiki_book_id;
+
+            try {
+                $data = file_get_contents($url);
+                $jsonData = json_decode($data, true);
+                echo $jsonData['price'] . "\r\n";
+                $book->update([
+                    'price' => $jsonData['price'],
+                ]);
+            } catch (Exception $e) {
+                echo 'Error';
+                continue;
+            }
         }
     }
 }

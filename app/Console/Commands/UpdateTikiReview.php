@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Scraper\ReviewScrapper;
+use App\Scraper\ReviewScraper;
 use Illuminate\Console\Command;
 
 class UpdateTikiReview extends Command
@@ -38,7 +38,7 @@ class UpdateTikiReview extends Command
      */
     public function handle()
     {
-        $bot = new ReviewScrapper();
+        $bot = new ReviewScraper();
         $bot->updateTikiReview();
     }
 }
