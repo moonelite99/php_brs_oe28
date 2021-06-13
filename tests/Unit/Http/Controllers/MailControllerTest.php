@@ -14,7 +14,7 @@ use Tests\TestCase;
 use Mockery;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class MailcontrollerTest extends TestCase
+class MailControllerTest extends TestCase
 {
     use WithoutMiddleware;
 

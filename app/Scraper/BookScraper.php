@@ -7,7 +7,7 @@ use App\Models\Tikibook;
 use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 
-class BookScrapper
+class BookScraper
 {
     public function scrapeTikiBook()
     {

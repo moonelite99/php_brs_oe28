@@ -7,7 +7,7 @@ use App\Models\Shopeebook;
 use App\Models\ShopReview;
 use App\Models\Tikibook;
 
-class ReviewScrapper
+class ReviewScraper
 {
     function scrapeTikiReview()
     {
