@@ -66,3 +66,9 @@ $(document).ready(function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+$(function () {
+    console.log($('.book-price')[0].innerText);
+});
+
+

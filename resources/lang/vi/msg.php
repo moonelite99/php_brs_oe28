@@ -104,4 +104,6 @@ return [
     'update' => 'Cập nhật',
     'update_tiki_review' => 'Cập nhật cảm nhận từ Tiki',
     'update_shopee_review' => 'Cập nhật cảm nhận từ Shopee',
+    'add_to_cart' => 'Thêm vào giỏ hàng',
+    'cart' => 'Giỏ hàng',
 ];

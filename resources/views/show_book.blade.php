@@ -17,18 +17,18 @@
                                             <span>{{ $book->author }}</span>
                                         </a>
                                     </li>
-                                    <li class="single-meta">
+                                    {{-- <li class="single-meta">
                                         <a href="#">
                                             <i class="fas fa-book"></i>
                                             {{ $book->pages_number . ' ' . trans('msg.pages') }}
                                         </a>
-                                    </li>
-                                    <li class="single-meta">
+                                    </li> --}}
+                                    {{-- <li class="single-meta">
                                         <a href="#">
                                             <i class="far fa-calendar-alt"></i>
                                             {{ $book->publish_date }}
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="single-meta">
                                         @if ($book->rating != config('default.rating'))
                                             <ul class="item-rating">
@@ -38,22 +38,22 @@
                                                 @for ($i = 0; $i < config('default.max_rating') - round($book->rating); $i++)
                                                     <li class="star-empty"><i class="fas fa-star"></i></li>
                                                 @endfor
-                                                <li>
+                                                {{-- <li>
                                                     <span>{{ $book->rating }}
                                                         <span>
                                                             &#47; {{ config('default.max_rating') }}
                                                         </span>
                                                     </span>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         @endif
                                     </li>
+
                                     <div class="pull-right">
                                         <input type="hidden" id="user_id" value="{{ Auth::user()->id }}">
                                         <input type="hidden" id="book_id" value="{{ $book->id }}">
                                         <li class="single-meta">
                                             <a href="#">
-                                                <span style="font-size: 20px"></span>
                                                     <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.cancel_mark_as_reading') }}</p>" class="fas fa-bookmark bookmark  @if ($status == config('read.unread') || $status == config('read.read')) d-none @endif" data-status="{{ config('read.unread') }}" id="reading"></i>
                                                     <i data-toggle="tooltip" data-placement="top" data-html="true" title="<p class='fs-13'>{{ trans('msg.mark_as_reading') }}</p>" class="far fa-bookmark bookmark @if ($status == config('read.reading')) d-none @endif" data-status="{{ config('read.reading') }}" id="unreading"></i>
                                             </a>
@@ -71,6 +71,12 @@
                                             </a>
                                         </li>
                                     </div>
+                                    <li class="single-meta pull-right add-to-cart">
+                                        <a href="#">
+                                            <i class="fa fa-cart-plus fs-20" aria-hidden="true"></i> <span class="fs-16">{{ trans('msg.add_to_cart') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="single-meta pull-right"><i class="fa fa-credit-card cirilla-color" aria-hidden="true"></i> <span class="book-price">{{ $book->price }}</span></li>
                                 </ul>
                             </div>
                         </div>

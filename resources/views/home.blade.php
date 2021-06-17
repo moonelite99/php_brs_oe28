@@ -29,14 +29,16 @@
                                         </li>
                                     </ul>
                                 @endif
-                                <ul class="entry-meta">
+                                {{-- <ul class="entry-meta">
                                     <li>
-                                        <a href="#">
-                                            <i class="fas fa-book"></i>
-                                            {{ $book->pages_number . ' ' . trans('msg.pages') }}
-                                        </a>
+                                        <i class="fas fa-book"></i>
+                                        {{ $book->pages_number . ' ' . trans('msg.pages') }}
                                     </li>
-                                    <li><a href="#"><i class="fas fa-user"></i> <span>{{ $book->author }}</span></a></li>
+                                    <li><i class="fas fa-user"></i> <span>{{ $book->author }}</span></li>
+                                </ul> --}}
+                                <ul class="entry-meta">
+                                    <li><i class="fa fa-credit-card cirilla-color" aria-hidden="true"></i> <span class="book-price">{{ $book->price }}</span></li>
+                                    <li><a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i> <span>{{ trans('msg.add_to_cart') }}</span></a></li>
                                 </ul>
                             </div>
                         </div>

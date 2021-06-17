@@ -105,4 +105,6 @@ return [
     'update' => 'Update',
     'update_tiki_review' => 'Update Tiki review',
     'update_shopee_review' => 'Update Shopee review',
+    'add_to_cart' => 'Add to cart',
+    'cart' => 'Cart',
 ];

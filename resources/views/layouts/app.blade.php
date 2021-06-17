@@ -110,7 +110,9 @@
                                             </ul>
                                         </li>
                                         @if (Auth::user()->role == config('role.user'))
-                                            <li><a href="{{ route('contacts.create') }}">{{ trans('msg.contact') }}</a></li>
+                                            <li><a
+                                                    href="{{ route('contacts.create') }}">{{ trans('msg.contact') }}</a>
+                                            </li>
                                         @endif
                                     @endauth
                                 </ul>
@@ -162,6 +164,10 @@
                                                     </li>
                                                 </ul>
                                             </li>
+                                            <li title="{{ trans('msg.cart') }}"><a href='#'>
+                                                    <i class="fa fa-shopping-cart fs-20" aria-hidden="true">
+                                                        <div class="number-circle" id="item-number">0</div>
+                                                    </i></a></li>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 class="d-none">
                                                 @csrf
@@ -176,8 +182,8 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                            <form id="language-form" action="{{ route('switch_lang') }}" method="POST"
-                                                class="d-none">
+                                            <form id="language-form" action="{{ route('switch_lang') }}"
+                                                method="POST" class="d-none">
                                                 @csrf
                                                 <input type="hidden" id="locale" name="locale">
                                             </form>
