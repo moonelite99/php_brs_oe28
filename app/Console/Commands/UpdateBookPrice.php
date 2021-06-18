@@ -12,7 +12,7 @@ class UpdateBookPrice extends Command
      *
      * @var string
      */
-    protected $signature = 'command:updateprice';
+    protected $signature = 'update:price';
 
     /**
      * The console command description.

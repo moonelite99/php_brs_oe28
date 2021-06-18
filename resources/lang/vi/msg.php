@@ -106,4 +106,5 @@ return [
     'update_shopee_review' => 'Cập nhật cảm nhận từ Shopee',
     'add_to_cart' => 'Thêm vào giỏ hàng',
     'cart' => 'Giỏ hàng',
+    'update_book_price' => 'Cập nhật giá sách',
 ];

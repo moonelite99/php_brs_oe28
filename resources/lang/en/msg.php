@@ -107,4 +107,5 @@ return [
     'update_shopee_review' => 'Update Shopee review',
     'add_to_cart' => 'Add to cart',
     'cart' => 'Cart',
+    'update_book_price' => 'Update book price',
 ];

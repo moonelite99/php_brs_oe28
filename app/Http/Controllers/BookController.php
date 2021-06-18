@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Book\BookRepositoryInterface;
 use App\Models\ShopReview;
+use Illuminate\Support\Facades\Artisan;
 
 class BookController extends Controller
 {
@@ -206,5 +207,12 @@ class BookController extends Controller
         }
 
         return redirect()->route('books.index')->with('status', trans('msg.delete_successful'));
+    }
+
+    public function updateBookPrice()
+    {
+        Artisan::call('update:price');
+
+        return redirect()->back()->with('status', trans('msg.update_successful'));
     }
 }

@@ -6,5 +6,8 @@
 <br>
 <br>
 <a href="{{ route('update_shopee') }}" class="btn btn-primary"> {{ trans('msg.update_shopee_review') }} </a>
+<br>
+<br>
+<a href="{{ route('update_price') }}" class="btn btn-primary"> {{ trans('msg.update_book_price') }} </a>
 
 @endsection

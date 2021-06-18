@@ -31,6 +31,8 @@ Route::group(['middleware' => 'localization'], function () {
         Route::get('/update/tiki', 'ShopReviewController@updateTikiReview')->name('update_tiki');
 
         Route::get('/update/shopee', 'ShopReviewController@updateShopeeReview')->name('update_shopee');
+
+        Route::get('/update/price', 'BookController@updateBookPrice')->name('update_price');
     });
 
     Route::post('/lang', 'LangController@postLang')->name('switch_lang');
@@ -67,5 +69,7 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::get('/books/category/{category}', 'BookController@categorize')->name('categorized_book');
 
-    Route::resource('shopreview', 'ShopReviewController');
+    Route::resource('shopReview', 'ShopReviewController');
+
+    Route::resource('cartItem', 'CartItemController');
 });

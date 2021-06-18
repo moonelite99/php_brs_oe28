@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Book::class)->withPivot('rating', 'status', 'favorite');
     }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

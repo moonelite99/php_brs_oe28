@@ -72,9 +72,15 @@
                                         </li>
                                     </div>
                                     <li class="single-meta pull-right add-to-cart">
-                                        <a href="#">
+                                        <a href="#" id="add-to-cart">
                                             <i class="fa fa-cart-plus fs-20" aria-hidden="true"></i> <span class="fs-16">{{ trans('msg.add_to_cart') }}</span>
                                         </a>
+                                        <form id="cart-form" action="{{ route('cartItem.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                        </form>
                                     </li>
                                     <li class="single-meta pull-right"><i class="fa fa-credit-card cirilla-color" aria-hidden="true"></i> <span class="book-price">{{ $book->price }}</span></li>
                                 </ul>
@@ -176,7 +182,7 @@
                                                                     @endfor
                                                                 </ul>
                                                                 @if (Auth::user()->role == config('role.admin'))
-                                                                    <form id="tiki{{ $review->id }}" method="post" action="{{ route('shopreview.destroy', $review->id) }}">
+                                                                    <form id="tiki{{ $review->id }}" method="post" action="{{ route('shopReview.destroy', $review->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <a href="#" onclick="event.preventDefault(); $('#tiki{{ $review->id }}').submit()"  class="item-btn"><i class="fas fa-times"></i></a>
@@ -211,7 +217,7 @@
                                                                     @endfor
                                                                 </ul>
                                                                 @if (Auth::user()->role == config('role.admin'))
-                                                                    <form id="shopee{{ $review->id }}" method="post" action="{{ route('shopreview.destroy', $review->id) }}">
+                                                                    <form id="shopee{{ $review->id }}" method="post" action="{{ route('shopReview.destroy', $review->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <a href="#" onclick="event.preventDefault(); $('#shopee{{ $review->id }}').submit()"  class="item-btn"><i class="fas fa-times"></i></a>
