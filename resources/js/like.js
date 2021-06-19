@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(function () {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            'X-CSRF-TOKEN': $('input[name="_token"]').val()
         }
     });
 
@@ -15,18 +15,18 @@ $(document).ready(function () {
                 'user_id': $(this).data("user_id"),
                 'likeable_id': $(this).data("likeable_id"),
                 'likeable_type': $(this).data("likeable_type"),
-                'like': true,
-            }
+                'like': true
+            };
             $.ajax({
                 url: '/brs/public/likes',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#like_num').html(data);
                     $('#like').addClass('d-none');
                     $('#unlike').removeClass('d-none');
                 }
-            })
+            });
         });
     }
 
@@ -36,18 +36,18 @@ $(document).ready(function () {
             var data = {
                 'user_id': $(this).data("user_id"),
                 'likeable_id': $(this).data("likeable_id"),
-                'likeable_type': $(this).data("likeable_type"),
-            }
+                'likeable_type': $(this).data("likeable_type")
+            };
             $.ajax({
                 url: '/brs/public/likes',
-                method: 'DELETE',
+                method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#like_num').html(data);
                     $('#unlike').addClass('d-none');
                     $('#like').removeClass('d-none');
                 }
-            })
+            });
         });
     }
 });

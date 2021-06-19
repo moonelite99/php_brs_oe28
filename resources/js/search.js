@@ -1,38 +1,39 @@
-$(document).ready(function () {
+$(function () {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            'X-CSRF-TOKEN': $('input[name="_token"]').val()
         }
     });
 
-    $('#search-on').on('click', function(event){
+    $('#search-on').on('click', function (event) {
         event.preventDefault();
         document.getElementById('search-box').style.visibility = 'visible';
         $('#search-on').addClass('d-none');
         $('#search-off').removeClass('d-none');
-    })
+    });
 
-    $('#search-off').on('click', function(event){
+    $('#search-off').on('click', function (event) {
         event.preventDefault();
         document.getElementById('search-box').style.visibility = 'hidden';
         $('#search-off').addClass('d-none');
         $('#search-on').removeClass('d-none');
-    })
+    });
 
     $('#search-box').on('keyup', function (event) {
         event.preventDefault();
         var input = {
-            'data': $('#search-box').val(),
-        }
+            'data': $('#search-box').val()
+        };
+
         if (input != '') {
             $.ajax({
-                url: '/brs/public/search',
+                url: $('#search-url').val(),
                 method: 'POST',
                 data: input,
-                success: function (data) {
+                success: function success(data) {
                     $('#result').html(data);
                 }
-            })
+            });
         }
     });
-})
+});

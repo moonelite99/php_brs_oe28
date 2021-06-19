@@ -100,4 +100,11 @@ class CartItemController extends Controller
     {
         //
     }
+
+    public function getItemsAmount()
+    {
+        $amount = CartItem::where('user_id', Auth::user()->id)->count();
+
+        return $amount;
+    }
 }

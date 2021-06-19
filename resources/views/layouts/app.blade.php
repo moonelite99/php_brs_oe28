@@ -106,6 +106,7 @@
                                         </li>
                                         <li class="search">
                                             <input id="search-box" class="search-box" type="text">
+                                            <input type="hidden" id="search-url" value="{{ route('search_book') }}">
                                             <ul class="dropdown-menu-col-1 result" id="result">
                                             </ul>
                                         </li>
@@ -166,7 +167,8 @@
                                             </li>
                                             <li title="{{ trans('msg.cart') }}"><a href='#'>
                                                     <i class="fa fa-shopping-cart fs-20" aria-hidden="true">
-                                                        <div class="number-circle" id="item-number">0</div>
+                                                        <div class="number-circle" id="item-number"></div>
+                                                        <input type="hidden" id='item-amount-url' value="{{ route('get_items_amount') }}">
                                                     </i></a></li>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 class="d-none">

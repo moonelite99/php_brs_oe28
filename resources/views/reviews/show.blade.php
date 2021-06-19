@@ -59,8 +59,8 @@
                             @php
                                 echo $review->content;
                             @endphp
-                                <a href="#" class="like @if (!Auth::user()->likes()->where('likeable_id', $review->id)->exists()) d-none @endif" id="unlike" data-likeable_type="App\Models\Review" data-likeable_id="{{ $review->id }}" data-user_id="{{ Auth::user()->id }}"><i class="fas fa-thumbs-up pull-left"></i></a>&nbsp;
-                                <a href="#" class="like @if (Auth::user()->likes()->where('likeable_id', $review->id)->exists()) d-none @endif" id="like" data-likeable_type="App\Models\Review" data-likeable_id="{{ $review->id }}" data-user_id="{{ Auth::user()->id }}"><i class="far fa-thumbs-up pull-left"></i></a>&nbsp;
+                                <a href="#" class="like @if (!Auth::user()->likes()->where('likeable_id', $review->id)->where('likeable_type', 'App\Models\Review')->exists()) d-none @endif" id="unlike" data-likeable_type="App\Models\Review" data-likeable_id="{{ $review->id }}" data-user_id="{{ Auth::user()->id }}"><i class="fas fa-thumbs-up pull-left"></i></a>&nbsp;
+                                <a href="#" class="like @if (Auth::user()->likes()->where('likeable_id', $review->id)->where('likeable_type', 'App\Models\Review')->exists()) d-none @endif" id="like" data-likeable_type="App\Models\Review" data-likeable_id="{{ $review->id }}" data-user_id="{{ Auth::user()->id }}"><i class="far fa-thumbs-up pull-left"></i></a>&nbsp;
                             <span class="like_num">(<span id="like_num">{{ $review->like_num }}</span>)</span>
                         </div>
                         <div class="recipe-reviews">

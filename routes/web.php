@@ -63,7 +63,7 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::get('/books/favorite', 'BookController@favorite')->name('fav_book');
 
-    Route::post('/search', 'BookController@search');
+    Route::post('/search', 'BookController@search')->name('search_book');
 
     Route::get('/category', 'BookController@getCategory');
 
@@ -72,4 +72,6 @@ Route::group(['middleware' => 'localization'], function () {
     Route::resource('shopReview', 'ShopReviewController');
 
     Route::resource('cartItem', 'CartItemController');
+
+    Route::get('/cartItemAmount', 'CartItemController@getItemsAmount')->name('get_items_amount');
 });

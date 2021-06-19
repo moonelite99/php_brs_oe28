@@ -77,9 +77,9 @@
                                         </a>
                                         <form id="cart-form" action="{{ route('cartItem.store') }}" method="POST">
                                             @csrf
+                                            <input type="hidden" id="add-to-cart-url" value="{{ route('cartItem.store') }}">
                                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                             <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="quantity" value="1">
                                         </form>
                                     </li>
                                     <li class="single-meta pull-right"><i class="fa fa-credit-card cirilla-color" aria-hidden="true"></i> <span class="book-price">{{ $book->price }}</span></li>
@@ -250,7 +250,7 @@
                             <div class="section-heading heading-dark">
                                 <h2 class="item-heading">{{ trans('msg.leave_review') }}</h2>
                             </div>
-                            @if ($rated != config('default.rating'))
+                            @if ($reviewed != null)
                                 <form class="leave-form-box" method="POST" action="{{ route('reviews.update', $reviewed->id) }}">
                                     @csrf
                                     @method('PUT')

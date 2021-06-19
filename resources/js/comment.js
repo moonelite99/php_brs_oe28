@@ -1,21 +1,21 @@
-$(document).ready(function () {
+$(function () {
     var arr = new Array(1000);
+
     for (var i = 0; i < 1000; i++) {
         arr[i] = i;
     }
+
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            'X-CSRF-TOKEN': $('input[name="_token"]').val()
         }
     });
-
     var content = '';
     var count = $('#count').val();
     var review_id = $('#review_id').val();
     var msg_submit = $('#msg_submit').val();
     var msg_delete = $('#msg_delete').val();
     var msg_delete_confirm = $('#msg_delete_confirm').val();
-
     comment();
     deleteComment();
     updateComment();
@@ -27,68 +27,10 @@ $(document).ready(function () {
         $.ajax({
             url: '/brs/public/comments',
             method: 'GET',
-            success: function (response) {
+            success: function success(response) {
                 var time = new Date();
                 count++;
-                content = `
-                <li class="reviews-single-item" id="li${count}">
-                    <div class="media media-none--xs" id="comment${count}">
-                        <button type="button" class="btn btn-secondary x-btn" data-toggle="modal"
-                            data-target="#exampleModal${count}">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                        <div class="modal fade" id="exampleModal${count}" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">
-                                            ${msg_delete}
-                                        </h5>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ${msg_delete_confirm}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                            data-id="${response.comment.id} "
-                                            id="delete${count}">${msg_delete}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="comment-title">${response.username}  </h4>
-                            <span class="post-date">${time.toISOString().slice(0, 10) + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()}  </span>
-                            <p class="break-word" id="p${count}">${response.comment.content}</p>
-                            <span class="pull-right">(<span id="cmt_like_num${count}">${response.comment.like_num} </span>)</span>
-                            <a href="#" class="like d-none" id="unlike_cmt${count}" data-likeable_type="App\\Models\\Comment" data-likeable_id="${response.comment.id} " data-user_id="${response.comment.user_id} "><i class="fas fa-thumbs-up pull-right"></i></a>&nbsp;
-                            <a href="#" class="like" id="like_cmt${count}" data-likeable_type="App\\Models\\Comment" data-likeable_id="${response.comment.id} " data-user_id="${response.comment.user_id} "><i class="far fa-thumbs-up pull-right"></i></a>&nbsp;
-                        </div>
-                    </div>
-                    <form class="leave-form-box d-none" id="comment_form${count}" data-id=${response.comment.id} " data-index=${count}>
-                        <input type="hidden" name="review_id" value="${review_id} ">
-                        <input type="hidden" name="user_id" value="${response.comment.user_id} ">
-                        <div class="row">
-                            <div class="col-12 form-group">
-                                <textarea class="textarea form-control comment-form-control"
-                                    name="content" id="content${count}" rows="4" cols="20"
-                                    required>${response.comment.content}</textarea>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="col-12 form-group mb-0">
-                                <button type="submit"
-                                    class="item-btn comment-button">${msg_submit} </button>
-                            </div>
-                        </div>
-                        <div class="form-response"></div>
-                    </form>
-                </li>
-                `;
+                content = "\n                <li class=\"reviews-single-item\" id=\"li".concat(count, "\">\n                    <div class=\"media media-none--xs\" id=\"comment").concat(count, "\">\n                        <button type=\"button\" class=\"btn btn-secondary x-btn\" data-toggle=\"modal\"\n                            data-target=\"#exampleModal").concat(count, "\">\n                            <i class=\"fa fa-times\" aria-hidden=\"true\"></i>\n                        </button>\n                        <div class=\"modal fade\" id=\"exampleModal").concat(count, "\" tabindex=\"-1\" role=\"dialog\"\n                            aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n                            <div class=\"modal-dialog\" role=\"document\">\n                                <div class=\"modal-content\">\n                                    <div class=\"modal-header\">\n                                        <h5 class=\"modal-title\" id=\"exampleModalLabel\">\n                                            ").concat(msg_delete, "\n                                        </h5>\n                                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"\n                                            aria-label=\"Close\">\n                                            <span aria-hidden=\"true\">&times;</span>\n                                        </button>\n                                    </div>\n                                    <div class=\"modal-body\">\n                                        ").concat(msg_delete_confirm, "\n                                    </div>\n                                    <div class=\"modal-footer\">\n                                        <button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\"\n                                            data-id=\"").concat(response.comment.id, " \"\n                                            id=\"delete").concat(count, "\">").concat(msg_delete, "</button>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"media-body\">\n                            <h4 class=\"comment-title\">").concat(response.username, "  </h4>\n                            <span class=\"post-date\">").concat(time.toISOString().slice(0, 10) + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(), "  </span>\n                            <p class=\"break-word\" id=\"p").concat(count, "\">").concat(response.comment.content, "</p>\n                            <span class=\"pull-right\">(<span id=\"cmt_like_num").concat(count, "\">").concat(response.comment.like_num, " </span>)</span>\n                            <a href=\"#\" class=\"like d-none\" id=\"unlike_cmt").concat(count, "\" data-likeable_type=\"App\\Models\\Comment\" data-likeable_id=\"").concat(response.comment.id, " \" data-user_id=\"").concat(response.comment.user_id, " \"><i class=\"fas fa-thumbs-up pull-right\"></i></a>&nbsp;\n                            <a href=\"#\" class=\"like\" id=\"like_cmt").concat(count, "\" data-likeable_type=\"App\\Models\\Comment\" data-likeable_id=\"").concat(response.comment.id, " \" data-user_id=\"").concat(response.comment.user_id, " \"><i class=\"far fa-thumbs-up pull-right\"></i></a>&nbsp;\n                        </div>\n                    </div>\n                    <form class=\"leave-form-box d-none\" id=\"comment_form").concat(count, "\" data-id=").concat(response.comment.id, " \" data-index=").concat(count, ">\n                        <input type=\"hidden\" name=\"review_id\" value=\"").concat(review_id, " \">\n                        <input type=\"hidden\" name=\"user_id\" value=\"").concat(response.comment.user_id, " \">\n                        <div class=\"row\">\n                            <div class=\"col-12 form-group\">\n                                <textarea class=\"textarea form-control comment-form-control\"\n                                    name=\"content\" id=\"content").concat(count, "\" rows=\"4\" cols=\"20\"\n                                    required>").concat(response.comment.content, "</textarea>\n                                <div class=\"help-block with-errors\"></div>\n                            </div>\n                            <div class=\"col-12 form-group mb-0\">\n                                <button type=\"submit\"\n                                    class=\"item-btn comment-button\">").concat(msg_submit, " </button>\n                            </div>\n                        </div>\n                        <div class=\"form-response\"></div>\n                    </form>\n                </li>\n                ");
                 $('#ajax-cmt').append(content);
                 animate();
                 updateComment();
@@ -96,7 +38,7 @@ $(document).ready(function () {
                 like_cmt();
                 unlike_cmt();
             }
-        })
+        });
     }
 
     function comment() {
@@ -107,11 +49,11 @@ $(document).ready(function () {
                 url: '/brs/public/comments',
                 method: 'POST',
                 data: form_data,
-                success: function (data) {
+                success: function success(data) {
                     $('#comment_form')[0].reset();
                     loadComments();
                 }
-            })
+            });
         });
     }
 
@@ -122,17 +64,17 @@ $(document).ready(function () {
                 var form_data = $(this).serialize();
                 var id = $(this).attr("data-id");
                 var idex = $(this).attr("data-index");
-                var content = $(`#content${idex}`).val();
+                var content = $("#content".concat(idex)).val();
                 $.ajax({
-                    url: `/brs/public/comments/${id}`,
+                    url: "/brs/public/comments/".concat(id),
                     method: 'PUT',
                     data: form_data,
-                    success: function (data) {
-                        $("#p" + arr[index]).html(`<p class="break-word">${content} </p>`)
+                    success: function success(data) {
+                        $("#p" + arr[index]).html("<p class=\"break-word\">".concat(content, " </p>"));
                         $("#comment" + arr[index]).removeClass("d-none");
                         $("#comment_form" + arr[index]).addClass("d-none");
                     }
-                })
+                });
             });
         });
     }
@@ -142,12 +84,12 @@ $(document).ready(function () {
             $('#delete' + arr[index]).on('click', function (event) {
                 var id = $(this).attr("data-id");
                 $.ajax({
-                    url: `/brs/public/comments/${id}`,
+                    url: "/brs/public/comments/".concat(id),
                     method: 'DELETE',
-                    success: function (data) {
+                    success: function success(data) {
                         $("#li" + arr[index]).addClass("d-none");
                     }
-                })
+                });
             });
         });
     }
@@ -169,21 +111,20 @@ $(document).ready(function () {
                     'user_id': $(this).data("user_id"),
                     'likeable_id': $(this).data("likeable_id"),
                     'likeable_type': $(this).data("likeable_type"),
-                    'like': true,
-                }
+                    'like': true
+                };
                 $.ajax({
                     url: '/brs/public/likes',
                     method: 'POST',
                     data: data,
-                    success: function (data) {
+                    success: function success(data) {
                         $('#cmt_like_num' + arr[index]).html(data);
                         $('#like_cmt' + arr[index]).addClass('d-none');
                         $('#unlike_cmt' + arr[index]).removeClass('d-none');
                     }
-                })
+                });
             });
         });
-
     }
 
     function unlike_cmt() {
@@ -193,21 +134,19 @@ $(document).ready(function () {
                 var data = {
                     'user_id': $(this).data("user_id"),
                     'likeable_id': $(this).data("likeable_id"),
-                    'likeable_type': $(this).data("likeable_type"),
-                }
+                    'likeable_type': $(this).data("likeable_type")
+                };
                 $.ajax({
                     url: '/brs/public/likes',
                     method: 'POST',
                     data: data,
-                    success: function (data) {
+                    success: function success(data) {
                         $('#cmt_like_num' + arr[index]).html(data);
                         $('#unlike_cmt' + arr[index]).addClass('d-none');
                         $('#like_cmt' + arr[index]).removeClass('d-none');
                     }
-                })
+                });
             });
         });
     }
 });
-
-

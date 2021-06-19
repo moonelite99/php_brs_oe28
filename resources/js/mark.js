@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(function () {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            'X-CSRF-TOKEN': $('input[name="_token"]').val()
         }
     });
 
@@ -18,19 +18,19 @@ $(document).ready(function () {
             var data = {
                 'user_id': $('#user_id').val(),
                 'book_id': $('#book_id').val(),
-                'status': $(this).data("status"),
-            }
+                'status': $(this).data("status")
+            };
             $.ajax({
                 url: '/brs/public/marks',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#unreading').addClass('d-none');
                     $('#reading').removeClass('d-none');
                     $('#unread').removeClass('d-none');
                     $('#read').addClass('d-none');
                 }
-            })
+            });
         });
     }
 
@@ -40,17 +40,17 @@ $(document).ready(function () {
             var data = {
                 'user_id': $('#user_id').val(),
                 'book_id': $('#book_id').val(),
-                'status': $(this).data("status"),
-            }
+                'status': $(this).data("status")
+            };
             $.ajax({
                 url: '/brs/public/marks',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#unreading').removeClass('d-none');
                     $('#reading').addClass('d-none');
                 }
-            })
+            });
         });
     }
 
@@ -60,19 +60,19 @@ $(document).ready(function () {
             var data = {
                 'user_id': $('#user_id').val(),
                 'book_id': $('#book_id').val(),
-                'status': $(this).data("status"),
-            }
+                'status': $(this).data("status")
+            };
             $.ajax({
                 url: '/brs/public/marks',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#unread').addClass('d-none');
                     $('#read').removeClass('d-none');
                     $('#unreading').removeClass('d-none');
                     $('#reading').addClass('d-none');
                 }
-            })
+            });
         });
     }
 
@@ -82,17 +82,17 @@ $(document).ready(function () {
             var data = {
                 'user_id': $('#user_id').val(),
                 'book_id': $('#book_id').val(),
-                'status': $(this).data("status"),
-            }
+                'status': $(this).data("status")
+            };
             $.ajax({
                 url: '/brs/public/marks',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#unread').removeClass('d-none');
                     $('#read').addClass('d-none');
                 }
-            })
+            });
         });
     }
 
@@ -102,17 +102,17 @@ $(document).ready(function () {
             var data = {
                 'user_id': $('#user_id').val(),
                 'book_id': $('#book_id').val(),
-                'favorite': $(this).data("favorite"),
-            }
+                'favorite': $(this).data("favorite")
+            };
             $.ajax({
                 url: '/brs/public/marks',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#unfav').addClass('d-none');
                     $('#fav').removeClass('d-none');
                 }
-            })
+            });
         });
     }
 
@@ -122,17 +122,17 @@ $(document).ready(function () {
             var data = {
                 'user_id': $('#user_id').val(),
                 'book_id': $('#book_id').val(),
-                'favorite': $(this).data("favorite"),
-            }
+                'favorite': $(this).data("favorite")
+            };
             $.ajax({
                 url: '/brs/public/marks',
                 method: 'POST',
                 data: data,
-                success: function (data) {
+                success: function success(data) {
                     $('#unfav').removeClass('d-none');
                     $('#fav').addClass('d-none');
                 }
-            })
+            });
         });
     }
 });
