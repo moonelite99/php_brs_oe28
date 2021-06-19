@@ -165,7 +165,7 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li title="{{ trans('msg.cart') }}"><a href='#'>
+                                            <li title="{{ trans('msg.cart') }}"><a href='{{ route('cartItem.index') }}'>
                                                     <i class="fa fa-shopping-cart fs-20" aria-hidden="true">
                                                         <div class="number-circle" id="item-number"></div>
                                                         <input type="hidden" id='item-amount-url' value="{{ route('get_items_amount') }}">
