@@ -108,4 +108,10 @@ return [
     'add_to_cart' => 'Add to cart',
     'cart' => 'Cart',
     'update_book_price' => 'Update book price',
+    'your_cart' => 'Your cart',
+    'price' => 'Price',
+    'amount' => 'Amount',
+    'subtotal' => 'Subtotal',
+    'product' => 'Product',
+    'add_to_cart_successfully' => 'Add to cart successfully',
 ];

@@ -107,4 +107,10 @@ return [
     'add_to_cart' => 'Thêm vào giỏ hàng',
     'cart' => 'Giỏ hàng',
     'update_book_price' => 'Cập nhật giá sách',
+    'your_cart' => 'Giỏ hàng của bạn',
+    'price' => 'Đơn giá',
+    'amount' => 'Số lượng',
+    'subtotal' => 'Thành tiền',
+    'product' => 'Sản phẩm',
+    'add_to_cart_successfully' => 'Thêm vào giỏ hàng thành công',
 ];

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -52,7 +54,11 @@ class CartItemController extends Controller
                     'quantity' => $cartItems->quantity + 1,
                 ]);
             }
-            return redirect()->back();
+            $data = [
+                'msg' => trans('msg.add_to_cart_successfully'),
+                'title' => trans('msg.notification'),
+            ];
+            return $data;
         }
 
         return null;
@@ -89,7 +95,20 @@ class CartItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $cartItem = CartItem::findOrFail($id);
+            $cartItem->update([
+                'quantity' => $request->quantity,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
+
+        $data = [
+            'msg' => trans('msg.update_successful'),
+            'title' => trans('msg.notification'),
+        ];
+        return $data;
     }
 
     /**
@@ -100,7 +119,18 @@ class CartItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $cartItem = CartItem::findOrFail($id);
+            $cartItem->delete();
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
+        $data = [
+            'msg' => trans('msg.delete_successful'),
+            'title' => trans('msg.notification'),
+        ];
+
+        return $data;
     }
 
     public function getItemsAmount()
