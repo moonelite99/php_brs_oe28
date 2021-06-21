@@ -41,4 +41,9 @@ class Book extends Model
     {
         return $this->hasOne(Shopeebook::class, 'tiki_book_id', 'tiki_book_id');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

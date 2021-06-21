@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Requests\OrderRequest;
+use App\Models\Request;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('make-request', function (User $user, OrderRequest $request) {
+            return $user->id == $request->user_id;
+        });
     }
 }

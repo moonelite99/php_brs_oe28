@@ -73,5 +73,7 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::resource('cartItem', 'CartItemController');
 
+    Route::resource('order', 'OrderController');
+
     Route::get('/cartItemAmount', 'CartItemController@getItemsAmount')->name('get_items_amount');
 });
