@@ -114,4 +114,7 @@ return [
     'subtotal' => 'Subtotal',
     'product' => 'Product',
     'add_to_cart_successfully' => 'Add to cart successfully',
+    'no_product' => 'No product',
+    'order_history' => 'Order history',
+    'no_order' => 'No order',
 ];

@@ -95,6 +95,9 @@
                                             <a href="#">{{ trans('msg.history') }}</a>
                                             <ul class="dropdown-menu-col-1 just-left">
                                                 <li>
+                                                    <a href="{{ route('order_history') }}">
+                                                        {{ trans('msg.order_history') }}
+                                                    </a>
                                                     <a href="{{ route('review_history') }}">
                                                         {{ trans('msg.written_review') }}
                                                     </a>

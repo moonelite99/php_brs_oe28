@@ -113,4 +113,7 @@ return [
     'subtotal' => 'Thành tiền',
     'product' => 'Sản phẩm',
     'add_to_cart_successfully' => 'Thêm vào giỏ hàng thành công',
+    'no_product' => 'Không có sản phẩm',
+    'order_history' => 'Đơn hàng đã đặt',
+    'no_order' => 'Không có đơn hàng nào',
 ];

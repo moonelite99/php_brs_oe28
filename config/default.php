@@ -20,4 +20,5 @@ return [
     'comment_row' => 4,
     'comment_col' => 20,
     'max_noti' => 4,
+    'order_paginate' => 1,
 ];

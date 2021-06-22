@@ -59,6 +59,8 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::get('/history/books', 'BookController@history')->name('read_history');
 
+    Route::get('/history/orders', 'OrderController@index')->name('order_history');
+
     Route::get('/books/reading', 'BookController@reading')->name('reading_book');
 
     Route::get('/books/favorite', 'BookController@favorite')->name('fav_book');

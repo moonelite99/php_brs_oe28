@@ -18,7 +18,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::where('user_id', Auth::user()->id)->orderByDesc('created_at')->paginate(config('default.order_paginate'));
+
+        return view('history.orders', compact('orders'));
     }
 
     /**
@@ -48,13 +50,16 @@ class OrderController extends Controller
 
             $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
             foreach ($cartItems as $item) {
-                $order->books()->syncWithoutDetaching([$item->id => ['quantity' => $item->quantity]]);
+                $order->books()->syncWithoutDetaching([$item->book->id => ['quantity' => $item->quantity]]);
+                $item->delete();
             }
+
+
         } else {
             return redirect()->back();
         }
 
-        return redirect()->back();
+        return redirect()->route('order_history');
     }
 
     /**

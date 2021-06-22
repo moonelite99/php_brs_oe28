@@ -7,6 +7,9 @@
         </h2>
         <div class="flex-wrap">
             <div class="col-lg-8 pad-table">
+                @if ($cartItems->count() == 0)
+                <p class="margin-left-20">{{ trans('msg.no_product') }}</p>
+                @else
                 <div class="table-responsive table--no-card m-b-30">
                     <table class="table table-borderless table-striped table-earning">
                         <thead>
@@ -111,6 +114,7 @@
                         </div>
                 </form>
             </div>
+            @endif
         </div>
     </div>
     </div>
